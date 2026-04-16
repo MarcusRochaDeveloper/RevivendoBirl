@@ -1,12 +1,13 @@
 HORA DO SHOW
 
-CE QUER VER ESSA PORRA? ("******************************************\n");
-CE QUER VER ESSA PORRA? ("* LISTA DE POO SENAI 4.0                 *\n");
-CE QUER VER ESSA PORRA? ("* DUPLA: Marcus Vinicius e Adam          *\n");
-CE QUER VER ESSA PORRA? ("******************************************\n\n");
+CE QUER VER ESSA PORRA? ("********************************************************\n");
+CE QUER VER ESSA PORRA? ("* SISTEMA REVIVENDO O BIRL - SENAI 4.0            *\n");
+CE QUER VER ESSA PORRA? ("* DESENVOLVEDORES SÊNIOR EM GAMBIARRAS: Marcus e Adam       *\n");
+CE QUER VER ESSA PORRA? ("* ARQUITETURA: BIRL OOP V5.5 |  *\n");
+CE QUER VER ESSA PORRA? ("********************************************************\n");
 
 // ==========================================
-// 1. JAULA DO ALUNO
+// 1. JAULA DO ALUNO (Encapsulamento de Notas)
 // ==========================================
 JAULA Aluno
     OH O HOME AI PO (MONSTRO INIT(MONSTRO NOME, MONSTRO IDADE, MONSTRO NOTA))
@@ -16,23 +17,28 @@ JAULA Aluno
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Nome: %s | Idade: %d | Nota: %d\n", O_PAI.NOME, O_PAI.IDADE, O_PAI.NOTA);
+        CE QUER VER ESSA PORRA? ("[Aluno] Nome: %s | Idade: %d | Nota Final: %d\n", O_PAI.NOME, O_PAI.IDADE, O_PAI.NOTA);
         BORA CUMPADE 1;
     BIRL
 BIRL
 
 // ==========================================
-// 2. JAULA DO PRODUTO
+// 2. JAULA DO PRODUTO (Com Soft Delete / Exclusão Lógica)
 // ==========================================
 JAULA Produto
     OH O HOME AI PO (MONSTRO INIT(MONSTRO NOME, MONSTRO PRECO, MONSTRO QTD))
         O_PAI.NOME = NOME;
         O_PAI.PRECO = PRECO;
         O_PAI.QTD = QTD;
+        O_PAI.ATIVO = 1; // 1 = Ativo, 0 = Removido logicamente
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Prod: %s | R$ %f | Qtd: %d\n", O_PAI.NOME, O_PAI.PRECO, O_PAI.QTD);
+        CE QUER VER ESSA PORRA? ("[Produto] %s | Valor: R$ %f | Estoque: %d un.\n", O_PAI.NOME, O_PAI.PRECO, O_PAI.QTD);
+        BORA CUMPADE 1;
+    BIRL
+    OH O HOME AI PO (MONSTRO DELETAR())
+        O_PAI.ATIVO = 0; // Exclusão Lógica (Soft Delete)
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -48,13 +54,13 @@ JAULA Livro
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Livro: %s | Autor: %s | Ano: %d\n", O_PAI.TITULO, O_PAI.AUTOR, O_PAI.ANO);
+        CE QUER VER ESSA PORRA? ("[Livro] Titulo: %s | Autor: %s | Lancamento: %d\n", O_PAI.TITULO, O_PAI.AUTOR, O_PAI.ANO);
         BORA CUMPADE 1;
     BIRL
 BIRL
 
 // ==========================================
-// 4. JAULA DO ESTUDANTE (NOTAS)
+// 4. JAULA DO ESTUDANTE (Com Array Dinâmico de Notas)
 // ==========================================
 JAULA Estudante
     OH O HOME AI PO (MONSTRO INIT(MONSTRO NOME))
@@ -91,7 +97,7 @@ JAULA Contato
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Nome: %s | Tel: %s | E-mail: %s\n", O_PAI.NOME, O_PAI.TEL, O_PAI.EMAIL);
+        CE QUER VER ESSA PORRA? ("[Contato] %s | Fone: %s | E-mail: %s\n", O_PAI.NOME, O_PAI.TEL, O_PAI.EMAIL);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -110,7 +116,7 @@ JAULA ItemCarrinho
         BORA CUMPADE O_PAI.PRECO * O_PAI.QTD;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Item: %s | R$ %f | Qtd: %d\n", O_PAI.NOME, O_PAI.PRECO, O_PAI.QTD);
+        CE QUER VER ESSA PORRA? ("[Item] %s | R$ %f (x%d un.)\n", O_PAI.NOME, O_PAI.PRECO, O_PAI.QTD);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -126,7 +132,7 @@ JAULA Funcionario
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Func: %s | Cargo: %s | Salario: R$ %f\n", O_PAI.NOME, O_PAI.CARGO, O_PAI.SALARIO);
+        CE QUER VER ESSA PORRA? ("[Rh] %s | Cargo: %s | Base Salarial: R$ %f\n", O_PAI.NOME, O_PAI.CARGO, O_PAI.SALARIO);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -142,7 +148,7 @@ JAULA Filme
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Filme: %s | Gen: %s | Nota: %d\n", O_PAI.TITULO, O_PAI.GENERO, O_PAI.NOTA);
+        CE QUER VER ESSA PORRA? ("[Kino] %s (%s) - Rate: %d/10\n", O_PAI.TITULO, O_PAI.GENERO, O_PAI.NOTA);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -158,7 +164,7 @@ JAULA Veiculo
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Veiculo: %s | Marca: %s | Ano: %d\n", O_PAI.MODELO, O_PAI.MARCA, O_PAI.ANO);
+        CE QUER VER ESSA PORRA? ("[Frota] %s %s - Ano Fab: %d\n", O_PAI.MARCA, O_PAI.MODELO, O_PAI.ANO);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -174,7 +180,7 @@ JAULA Pedido
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Pedido: %d | Cliente: %s | Valor: R$ %f\n", O_PAI.NUMERO, O_PAI.CLIENTE, O_PAI.VALOR);
+        CE QUER VER ESSA PORRA? ("[Vendas] Pedido #%d | Cliente: %s | Faturamento: R$ %f\n", O_PAI.NUMERO, O_PAI.CLIENTE, O_PAI.VALOR);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -194,7 +200,11 @@ JAULA Tarefa
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Tarefa: %s | Prio: %s | Feita: %d\n", O_PAI.DESC, O_PAI.PRIO, O_PAI.CONCLUIDA);
+        MONSTRO STATUS_STR = "Pendente";
+        ELE QUE A GENTE QUER? (O_PAI.CONCLUIDA == 1)
+            STATUS_STR = "Resolvida";
+        BIRL
+        CE QUER VER ESSA PORRA? ("[Task] [%s] %s (Prio: %s)\n", STATUS_STR, O_PAI.DESC, O_PAI.PRIO);
         BORA CUMPADE 1;
     BIRL
 BIRL
@@ -210,14 +220,14 @@ JAULA Jogador
         BORA CUMPADE 1;
     BIRL
     OH O HOME AI PO (MONSTRO MOSTRAR())
-        CE QUER VER ESSA PORRA? ("Jogador: %s | Pos: %s | Gols: %d\n", O_PAI.NOME, O_PAI.POSICAO, O_PAI.GOLS);
+        CE QUER VER ESSA PORRA? ("[Scout] %s (%s) - %d Gols marcados\n", O_PAI.NOME, O_PAI.POSICAO, O_PAI.GOLS);
         BORA CUMPADE 1;
     BIRL
 BIRL
 
 
 // =========================================================================
-// MOTOR PRINCIPAL - MASTER MENU (TODOS OS 12 EXERCICIOS + SAIR)
+// ROUTER PRINCIPAL (CONTROLADOR DE FLUXO GLOBAL)
 // =========================================================================
 
 MONSTRO EXERCICIO = 0;
@@ -227,6 +237,7 @@ MONSTRO J = 0;
 MONSTRO LISTA = VEM MONSTRO;
 MONSTRO OBJ;
 
+// Padrão de Registradores Globais para Otimização de Memória no Loop
 MONSTRO T_STR1 = "";
 MONSTRO T_STR2 = "";
 MONSTRO T_STR3 = "";
@@ -235,37 +246,50 @@ MONSTRO T_NUM2 = 0;
 MONSTRO T_NUM3 = 0;
 
 NEGATIVA BAMBAM (EXERCICIO != 13)
-    CE QUER VER ESSA PORRA? ("\n==========================================\n");
-    CE QUER VER ESSA PORRA? ("1. Alunos\n2. Produtos\n3. Biblioteca\n4. Estudantes (Notas)\n");
-    CE QUER VER ESSA PORRA? ("5. Contatos\n6. Carrinho\n7. Funcionarios\n8. Filmes\n");
-    CE QUER VER ESSA PORRA? ("9. Veiculos\n10. Pedidos\n11. Tarefas\n12. Jogadores\n13. Sair\n");
-    CE QUER VER ESSA PORRA? ("Escolha o exercicio monstro: ");
+    CE QUER VER ESSA PORRA? ("\n======================================================\n");
+    CE QUER VER ESSA PORRA? ("                 MENU DE ATIVIDADES                   \n");
+    CE QUER VER ESSA PORRA? ("======================================================\n");
+    CE QUER VER ESSA PORRA? (" [01] Alunos           [02] Produtos (+ REMOVER)\n");
+    CE QUER VER ESSA PORRA? (" [03] Biblioteca       [04] Estudantes (Notas)\n");
+    CE QUER VER ESSA PORRA? (" [05] Contatos         [06] Carrinho de Compras\n");
+    CE QUER VER ESSA PORRA? (" [07] Funcionarios     [08] Filmes em Cartaz\n");
+    CE QUER VER ESSA PORRA? (" [09] Veiculos         [10] Controle de Pedidos\n");
+    CE QUER VER ESSA PORRA? (" [11] Tarefas Kanban   [12] Scout Jogadores\n");
+    CE QUER VER ESSA PORRA? (" [13] SAIR DO SISTEMA \n");
+    CE QUER VER ESSA PORRA? ("------------------------------------------------------\n");
+    CE QUER VER ESSA PORRA? ("DIGITE O NUMERO DA ATIVIDADE: ");
     QUE QUE CE QUER MONSTRAO? ("%d", &EXERCICIO);
 
+    // Garbage Collection Manual: Zera o escopo da lista a cada atividade
     LISTA = VEM MONSTRO;
 
     // ==========================================
     // EXERCICIO 1: ALUNOS
     // ==========================================
     ELE QUE A GENTE QUER? (EXERCICIO == 1)
-        CE QUER VER ESSA PORRA? ("Quantos alunos? ");
+        CE QUER VER ESSA PORRA? ("\n--- CADASTRO DE ALUNOS ---\n");
+        CE QUER VER ESSA PORRA? ("Quantos alunos deseja registrar? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Nome: ");
+            CE QUER VER ESSA PORRA? ("Nome do Aluno: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
             CE QUER VER ESSA PORRA? ("Idade: ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
-            CE QUER VER ESSA PORRA? ("Nota: ");
+            CE QUER VER ESSA PORRA? ("Nota Final (0 a 100): ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM2);
+            
             OBJ = SAINDO DA JAULA Aluno;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_NUM1, T_NUM2);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
+            CE QUER VER ESSA PORRA? ("- Aluno Inserido com Sucesso!\n");
         BIRL
         
         MONSTRO SOMA = 0;
-        MONSTRO MAIOR = 0;
+        MONSTRO MAIOR = -1;
         MONSTRO N_MAIOR = "";
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 1) ---\n");
+        
+        CE QUER VER ESSA PORRA? ("\n--- RELATORIO DE CLASSE ---\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
@@ -275,79 +299,113 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
                 N_MAIOR = OBJ.NOME;
             BIRL
         BIRL
+        
+        // Tratamento Fail-Safe (Divisão por Zero)
         ELE QUE A GENTE QUER? (QTD > 0)
-            CE QUER VER ESSA PORRA? ("Media: %d | Maior Nota: %s (%d)\n", SOMA / QTD, N_MAIOR, MAIOR);
+            CE QUER VER ESSA PORRA? ("\n[DASHBOARD] Media Geral da Turma: %d\n", SOMA / QTD);
+            CE QUER VER ESSA PORRA? ("[DASHBOARD] Melhor Aluno: %s (Score: %d)\n", N_MAIOR, MAIOR);
         BIRL
 
     // ==========================================
-    // EXERCICIO 2: PRODUTOS
+    // EXERCICIO 2: PRODUTOS (COM REMOÇÃO LÓGICA)
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 2)
-        CE QUER VER ESSA PORRA? ("Quantos produtos? ");
+        CE QUER VER ESSA PORRA? ("\n--- GESTAO DE PRODUTOS ---\n");
+        CE QUER VER ESSA PORRA? ("Quantos produtos serao cadastrados? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Nome: ");
+            CE QUER VER ESSA PORRA? ("Nome do Produto: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Preco: ");
+            CE QUER VER ESSA PORRA? ("Preco Unitario: ");
             QUE QUE CE QUER MONSTRAO? ("%f", &T_NUM1);
-            CE QUER VER ESSA PORRA? ("Estoque: ");
+            CE QUER VER ESSA PORRA? ("Quantidade em Estoque: ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM2);
+            
             OBJ = SAINDO DA JAULA Produto;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_NUM1, T_NUM2);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
+        // Desafio Extra: Remoção de Elementos (Soft Delete)
+        CE QUER VER ESSA PORRA? ("\n[!] Deseja remover algum produto inserido? (1-Sim / 0-Nao): ");
+        QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM3);
+        ELE QUE A GENTE QUER? (T_NUM3 == 1)
+            CE QUER VER ESSA PORRA? ("Digite o NOME EXATO do produto para excluir: ");
+            QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
+            
+            MAIS QUERO MAIS (I = 0; I < QTD; I++)
+                OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
+                ELE QUE A GENTE QUER? (OBJ.NOME == T_STR2)
+                    AJUDA O MALUCO TA DOENTE OBJ.DELETAR(); // Aciona a exclusão lógica
+                    CE QUER VER ESSA PORRA? ("- REGISTRO DELETADO DO SISTEMA!\n");
+                BIRL
+            BIRL
+        BIRL
+
         MONSTRO TOTAL_ESTOQUE = 0;
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 2) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- RELATORIO DE INVENTARIO ATIVO ---\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
-            AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
-            TOTAL_ESTOQUE = TOTAL_ESTOQUE + (OBJ.PRECO * OBJ.QTD);
+            
+            // Regra de Negócio: Exibir apenas os não deletados
+            ELE QUE A GENTE QUER? (OBJ.ATIVO == 1)
+                AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
+                TOTAL_ESTOQUE = TOTAL_ESTOQUE + (OBJ.PRECO * OBJ.QTD);
+            BIRL
         BIRL
-        CE QUER VER ESSA PORRA? ("Valor total do estoque: R$ %f\n", TOTAL_ESTOQUE);
         
-        CE QUER VER ESSA PORRA? ("\nBuscar produto (digite o nome): ");
+        CE QUER VER ESSA PORRA? ("\n[DASHBOARD] Valor Total Patrimonial: R$ %f\n", TOTAL_ESTOQUE);
+        
+        CE QUER VER ESSA PORRA? ("\nBuscar produto (Nome): ");
         QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
         MONSTRO ACHOU = 0;
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
-            ELE QUE A GENTE QUER? (OBJ.NOME == T_STR2) 
-                ACHOU = 1;
-                CE QUER VER ESSA PORRA? ("Encontrado -> ");
-                AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR(); 
+            // Regra de Negócio: Não achar itens deletados
+            ELE QUE A GENTE QUER? (OBJ.NOME == T_STR2)
+                ELE QUE A GENTE QUER? (OBJ.ATIVO == 1)
+                    ACHOU = 1;
+                    CE QUER VER ESSA PORRA? ("MATCH ENCONTRADO -> ");
+                    AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR(); 
+                BIRL
             BIRL
         BIRL
         ELE QUE A GENTE QUER? (ACHOU == 0)
-            CE QUER VER ESSA PORRA? ("Nao encontrado!\n");
+            CE QUER VER ESSA PORRA? ("- PRODUTO INEXISTENTE OU DELETADO!\n");
         BIRL
 
     // ==========================================
     // EXERCICIO 3: BIBLIOTECA
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 3)
-        CE QUER VER ESSA PORRA? ("Quantos livros? ");
+        CE QUER VER ESSA PORRA? ("\n--- ACERVO DA BIBLIOTECA ---\n");
+        CE QUER VER ESSA PORRA? ("Quantos livros deseja arquivar? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Titulo: ");
+            CE QUER VER ESSA PORRA? ("Titulo da Obra: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
             CE QUER VER ESSA PORRA? ("Autor: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
-            CE QUER VER ESSA PORRA? ("Ano: ");
+            CE QUER VER ESSA PORRA? ("Ano de Publicacao: ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
+            
             OBJ = SAINDO DA JAULA Livro;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2, T_NUM1);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- TODOS OS LIVROS ---\n");
+        CE QUER VER ESSA PORRA? ("\n[DASHBOARD] TODOS OS REGISTROS BIBLIOGRAFICOS:\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\nMostrar livros apos que ano? ");
+        CE QUER VER ESSA PORRA? ("\n[FILTRO] Mostrar obras publicadas apos que ano? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM2);
-        CE QUER VER ESSA PORRA? ("--- RESULTADO (EX 3) ---\n");
+        
+        CE QUER VER ESSA PORRA? ("--- RESULTADO DO FILTRO ---\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             ELE QUE A GENTE QUER? (OBJ.ANO > T_NUM2)
@@ -356,37 +414,41 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
         BIRL
 
     // ==========================================
-    // EXERCICIO 4: ESTUDANTES (ARRAY DE NOTAS)
+    // EXERCICIO 4: ESTUDANTES (MÚLTIPLAS NOTAS)
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 4)
-        CE QUER VER ESSA PORRA? ("Quantos estudantes? ");
+        CE QUER VER ESSA PORRA? ("\n--- CONSELHO DE CLASSE ---\n");
+        CE QUER VER ESSA PORRA? ("Avaliar quantos estudantes? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Nome: ");
+            CE QUER VER ESSA PORRA? ("Nome do Estudante: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
             OBJ = SAINDO DA JAULA Estudante;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1);
             
-            CE QUER VER ESSA PORRA? ("Quantas notas ele tem? ");
+            CE QUER VER ESSA PORRA? ("Quantas notas compoem a media dele? ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
+            
             MAIS QUERO MAIS (J = 0; J < T_NUM1; J++)
-                CE QUER VER ESSA PORRA? ("Nota: ");
+                CE QUER VER ESSA PORRA? ("Digite a nota: ");
                 QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM2);
                 AJUDA O MALUCO TA DOENTE OBJ.BOTA_NOTA(T_NUM2);
             BIRL
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 4) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- STATUS DE APROVACAO ---\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             MONSTRO M = AJUDA O MALUCO TA DOENTE OBJ.MEDIA();
-            CE QUER VER ESSA PORRA? ("Estudante: %s | Media: %d | ", OBJ.NOME, M);
+            
+            CE QUER VER ESSA PORRA? ("Avaliado: %s | Media: %d | Status: ", OBJ.NOME, M);
+            // Regra de Negócio: Aprovado se >= 7
             ELE QUE A GENTE QUER? (M >= 7)
-                CE QUER VER ESSA PORRA? ("APROVADO!\n");
-            BIRL
+                CE QUER VER ESSA PORRA? ("[APROVADO]\n");
             NAO VAI DAR NAO
-                CE QUER VER ESSA PORRA? ("REPROVADO!\n");
+                CE QUER VER ESSA PORRA? ("[REPROVADO]\n");
             BIRL
         BIRL
 
@@ -394,32 +456,35 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
     // EXERCICIO 5: CONTATOS
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 5)
-        CE QUER VER ESSA PORRA? ("Quantos contatos? ");
+        CE QUER VER ESSA PORRA? ("\n--- CRM - GESTAO DE CONTATOS ---\n");
+        CE QUER VER ESSA PORRA? ("Numero de Leads a cadastrar: ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             CE QUER VER ESSA PORRA? ("Nome: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Tel: ");
+            CE QUER VER ESSA PORRA? ("Telefone: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
-            CE QUER VER ESSA PORRA? ("Email: ");
+            CE QUER VER ESSA PORRA? ("E-mail Corporativo: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR3);
+            
             OBJ = SAINDO DA JAULA Contato;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2, T_STR3);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- TODOS OS CONTATOS ---\n");
+        CE QUER VER ESSA PORRA? ("\n[DASHBOARD] DATABASE COMPLETA:\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\nBuscar por nome: ");
+        CE QUER VER ESSA PORRA? ("\n[QUERY] Buscar Contato pelo Nome: ");
         QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             ELE QUE A GENTE QUER? (OBJ.NOME == T_STR1)
-                CE QUER VER ESSA PORRA? ("Achou -> ");
+                CE QUER VER ESSA PORRA? ("RESULTADO -> ");
                 AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
             BIRL
         BIRL
@@ -428,79 +493,91 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
     // EXERCICIO 6: CARRINHO DE COMPRAS
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 6)
-        CE QUER VER ESSA PORRA? ("Quantos itens no carrinho? ");
+        CE QUER VER ESSA PORRA? ("\n--- E-COMMERCE CHECKOUT ---\n");
+        CE QUER VER ESSA PORRA? ("Quantos SKUs no carrinho? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Nome do item: ");
+            CE QUER VER ESSA PORRA? ("SKU/Item: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Preco: ");
+            CE QUER VER ESSA PORRA? ("Preco de Tabela: ");
             QUE QUE CE QUER MONSTRAO? ("%f", &T_NUM1);
-            CE QUER VER ESSA PORRA? ("Quantidade: ");
+            CE QUER VER ESSA PORRA? ("Volume (Qtd): ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM2);
+            
             OBJ = SAINDO DA JAULA ItemCarrinho;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_NUM1, T_NUM2);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 6) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- CUPOM FISCAL ---\n");
         MONSTRO TOTAL_COMPRA = 0;
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
             TOTAL_COMPRA = TOTAL_COMPRA + AJUDA O MALUCO TA DOENTE OBJ.SUBTOTAL();
         BIRL
-        CE QUER VER ESSA PORRA? ("Valor Total Compra: R$ %f\n", TOTAL_COMPRA);
+        CE QUER VER ESSA PORRA? ("---------------------------\n");
+        CE QUER VER ESSA PORRA? ("[FATURAMENTO] Total Final: R$ %f\n", TOTAL_COMPRA);
 
     // ==========================================
     // EXERCICIO 7: FUNCIONARIOS
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 7)
-        CE QUER VER ESSA PORRA? ("Quantos funcionarios? ");
+        CE QUER VER ESSA PORRA? ("\n--- MODULO RH / FOLHA DE PAGAMENTO ---\n");
+        CE QUER VER ESSA PORRA? ("Total de Contratacoes: ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Nome: ");
+            CE QUER VER ESSA PORRA? ("Colaborador: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Cargo: ");
+            CE QUER VER ESSA PORRA? ("Departamento/Cargo: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
-            CE QUER VER ESSA PORRA? ("Salario: ");
+            CE QUER VER ESSA PORRA? ("Vencimento Base Mensal: ");
             QUE QUE CE QUER MONSTRAO? ("%f", &T_NUM1);
+            
             OBJ = SAINDO DA JAULA Funcionario;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2, T_NUM1);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 7) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- QUADRO DE FUNCIONARIOS ---\n");
         MONSTRO SOMA_SAL = 0;
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
             SOMA_SAL = SOMA_SAL + OBJ.SALARIO;
         BIRL
+        
         ELE QUE A GENTE QUER? (QTD > 0)
-            CE QUER VER ESSA PORRA? ("Media Salarial da Empresa: R$ %f\n", SOMA_SAL / QTD);
+            CE QUER VER ESSA PORRA? ("\n[ANALYTICS] Ticket Medio Salarial: R$ %f\n", SOMA_SAL / QTD);
         BIRL
 
     // ==========================================
     // EXERCICIO 8: FILMES
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 8)
-        CE QUER VER ESSA PORRA? ("Quantos filmes? ");
+        CE QUER VER ESSA PORRA? ("\n--- IMDB LOCAL ---\n");
+        CE QUER VER ESSA PORRA? ("Avaliar quantas producoes? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Titulo: ");
+            CE QUER VER ESSA PORRA? ("Filme: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Genero: ");
+            CE QUER VER ESSA PORRA? ("Genero/Categoria: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
-            CE QUER VER ESSA PORRA? ("Nota (0 a 10): ");
+            CE QUER VER ESSA PORRA? ("Nota dos Criticos (0 a 10): ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
+            
             OBJ = SAINDO DA JAULA Filme;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2, T_NUM1);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 8) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- RANKING DA CRITICA ---\n");
         MONSTRO MAIOR_F = -1;
         MONSTRO FILME_M = "";
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
@@ -509,35 +586,39 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
                 FILME_M = OBJ.TITULO;
             BIRL
         BIRL
-        CE QUER VER ESSA PORRA? ("Maior Nota: %s (Nota: %d)\n", FILME_M, MAIOR_F);
+        CE QUER VER ESSA PORRA? ("\n[OSCAR WINNER] Melhor Producao: %s (Nota: %d)\n", FILME_M, MAIOR_F);
 
     // ==========================================
     // EXERCICIO 9: VEICULOS
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 9)
-        CE QUER VER ESSA PORRA? ("Quantos veiculos? ");
+        CE QUER VER ESSA PORRA? ("\n--- LOGISTICA E FROTA ---\n");
+        CE QUER VER ESSA PORRA? ("Inventariar quantos veiculos? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             CE QUER VER ESSA PORRA? ("Modelo: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Marca: ");
+            CE QUER VER ESSA PORRA? ("Montadora/Marca: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
-            CE QUER VER ESSA PORRA? ("Ano: ");
+            CE QUER VER ESSA PORRA? ("Ano Fabricacao: ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
+            
             OBJ = SAINDO DA JAULA Veiculo;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2, T_NUM1);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- TODOS OS VEICULOS ---\n");
+        CE QUER VER ESSA PORRA? ("\n[DASHBOARD] FROTA ATIVA GERAL:\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\nMostrar veiculos fabricados apos que ano? ");
+        CE QUER VER ESSA PORRA? ("\n[FILTRO] Retornar veiculos posteriores ao ano: ");
         QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM2);
-        CE QUER VER ESSA PORRA? ("--- RESULTADO (EX 9) ---\n");
+        
+        CE QUER VER ESSA PORRA? ("\n--- FROTA RECEM-CHEGADA ---\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             ELE QUE A GENTE QUER? (OBJ.ANO > T_NUM2)
@@ -549,44 +630,50 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
     // EXERCICIO 10: PEDIDOS
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 10)
-        CE QUER VER ESSA PORRA? ("Quantos pedidos? ");
+        CE QUER VER ESSA PORRA? ("\n--- ERP DE FATURAMENTO ---\n");
+        CE QUER VER ESSA PORRA? ("Quantidade de NFs emitidas: ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Numero do Pedido: ");
+            CE QUER VER ESSA PORRA? ("ID do Pedido (#): ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
-            CE QUER VER ESSA PORRA? ("Cliente: ");
+            CE QUER VER ESSA PORRA? ("Razao Social do Cliente: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Valor: ");
+            CE QUER VER ESSA PORRA? ("Valor Faturado: ");
             QUE QUE CE QUER MONSTRAO? ("%f", &T_NUM2);
+            
             OBJ = SAINDO DA JAULA Pedido;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_NUM1, T_STR1, T_NUM2);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 10) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- EXTRATO DE OPERACOES ---\n");
         MONSTRO TOTAL_PEDS = 0;
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
             TOTAL_PEDS = TOTAL_PEDS + OBJ.VALOR;
         BIRL
-        CE QUER VER ESSA PORRA? ("Valor total vendido: R$ %f\n", TOTAL_PEDS);
+        CE QUER VER ESSA PORRA? ("\n[DASHBOARD] Receita Bruta Consolidada: R$ %f\n", TOTAL_PEDS);
 
     // ==========================================
-    // EXERCICIO 11: TAREFAS
+    // EXERCICIO 11: TAREFAS KANBAN
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 11)
-        CE QUER VER ESSA PORRA? ("Quantas tarefas? ");
+        CE QUER VER ESSA PORRA? ("\n--- GESTAO AGILE (KANBAN) ---\n");
+        CE QUER VER ESSA PORRA? ("Criar quantas Tasks no Board? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Descricao: ");
+            CE QUER VER ESSA PORRA? ("Descricao da Epica/Task: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Prioridade: ");
+            CE QUER VER ESSA PORRA? ("Criticidade (Alta/Media/Baixa): ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
+            
             OBJ = SAINDO DA JAULA Tarefa;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2);
             
-            CE QUER VER ESSA PORRA? ("Ja esta concluida? (1-Sim, 0-Nao): ");
+            CE QUER VER ESSA PORRA? ("A Tarefa ja foi entregue em PRD? (1-Sim, 0-Nao): ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
             ELE QUE A GENTE QUER? (T_NUM1 == 1)
                 AJUDA O MALUCO TA DOENTE OBJ.CONCLUIR();
@@ -595,13 +682,13 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- TODAS AS TAREFAS ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- BOARD COMPLETO DA SPRINT ---\n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- TAREFAS PENDENTES (EX 11) ---\n");
+        CE QUER VER ESSA PORRA? ("\n[BACKLOG] TASKS PENDENTES (TO-DO): \n");
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             ELE QUE A GENTE QUER? (OBJ.CONCLUIDA == 0)
@@ -613,23 +700,27 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
     // EXERCICIO 12: TIMES DE FUTEBOL
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 12)
-        CE QUER VER ESSA PORRA? ("Quantos jogadores? ");
+        CE QUER VER ESSA PORRA? ("\n--- DEPARTAMENTO SCOUTING F.C. ---\n");
+        CE QUER VER ESSA PORRA? ("Analisar dados de quantos atletas? ");
         QUE QUE CE QUER MONSTRAO? ("%d", &QTD);
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
-            CE QUER VER ESSA PORRA? ("Nome: ");
+            CE QUER VER ESSA PORRA? ("Nome do Jogador: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR1);
-            CE QUER VER ESSA PORRA? ("Posicao: ");
+            CE QUER VER ESSA PORRA? ("Posicao Tatica: ");
             QUE QUE CE QUER MONSTRAO? ("%s", &T_STR2);
-            CE QUER VER ESSA PORRA? ("Gols na temporada: ");
+            CE QUER VER ESSA PORRA? ("Gols Registrados na Temporada: ");
             QUE QUE CE QUER MONSTRAO? ("%d", &T_NUM1);
+            
             OBJ = SAINDO DA JAULA Jogador;
             AJUDA O MALUCO TA DOENTE OBJ.INIT(T_STR1, T_STR2, T_NUM1);
             AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(OBJ);
         BIRL
         
-        CE QUER VER ESSA PORRA? ("\n--- RESULTADO (EX 12) ---\n");
+        CE QUER VER ESSA PORRA? ("\n--- RELATORIO DE ELENCO ---\n");
         MONSTRO MAIOR_GOLS = -1;
         MONSTRO NOME_ART = "";
+        
         MAIS QUERO MAIS (I = 0; I < QTD; I++)
             OBJ = AJUDA O MALUCO TA DOENTE LISTA.PEGA(I);
             AJUDA O MALUCO TA DOENTE OBJ.MOSTRAR();
@@ -638,20 +729,20 @@ NEGATIVA BAMBAM (EXERCICIO != 13)
                 NOME_ART = OBJ.NOME;
             BIRL
         BIRL
-        CE QUER VER ESSA PORRA? ("Artilheiro do Time: %s com %d gols\n", NOME_ART, MAIOR_GOLS);
+        CE QUER VER ESSA PORRA? ("\n[PREMIACAO] Chuteira de Ouro: %s (Strikes: %d)\n", NOME_ART, MAIOR_GOLS);
 
     // ==========================================
     // OPÇÃO 13: SAIR
     // ==========================================
     QUE NAO VAI DAR O QUE? (EXERCICIO == 13)
-        CE QUER VER ESSA PORRA? ("Saindo da Jaula! Professor, manda aquele 10 pra dupla!\n");
+        CE QUER VER ESSA PORRA? ("\nDesligando Servidores... Pede pro professor aprovar no Classroom! BIRL!\n");
 
     // ==========================================
-    // OPÇÃO INVÁLIDA
+    // OPÇÃO INVÁLIDA (FALLBACK)
     // ==========================================
     NAO VAI DAR NAO
-        CE QUER VER ESSA PORRA? ("Opcao invalida, frango! Digita um numero de 1 a 13.\n");
+        CE QUER VER ESSA PORRA? ("\n[ERROR 400] Bad Request, Frango! O input deve ser entre 1 e 13.\n");
 
-    BIRL
+    BIRL 
 
 BIRL

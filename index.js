@@ -80,8 +80,87 @@ async function executarBloco(linhas, ctx) {
   };
 
   const extrairBloco = (startIndex) => extrairBlocoGeral(startIndex, linhas);
+
+  const checkReturn = (res) => {
+    if (res && typeof res === 'object' && res.__isReturn) return true;
+    return false;
+  };
+
+  // =======================================================
+  // FIX: Helper unificado para executar chamadas AJUDA.
+  // Suporta 1 nível (função global), 2 níveis (obj.metodo)
+  // e 3 níveis (obj.prop.metodo — ex: O_PAI.NOTAS.PEGA(X)).
+  // =======================================================
+  const executarChamadaPorPath = async (fullPath, argsText, l_num) => {
+    const args = argsText
+      ? argsText.split(",").map(a => a.trim()).filter(a => a.length > 0).map(a => getValue(a, l_num))
+      : [];
+    const partes = fullPath.split('.');
+
+    if (partes.length === 1) {
+      // --- Função global ---
+      const funcName = partes[0];
+      if (ctx.funcoes[funcName]) {
+        const funcDef = ctx.funcoes[funcName];
+        const funcCtx = { variaveis: {}, funcoes: ctx.funcoes, classes: ctx.classes };
+        funcDef.params.forEach((p, i) => { funcCtx.variaveis[p] = args[i]; });
+        const res = await executarBloco(funcDef.bloco, funcCtx);
+        if (checkReturn(res)) return res.value;
+        return undefined;
+      }
+      console.log(`🔥 ERRO (Linha ${l_num}): Função global '${funcName}' não existe!`);
+      process.exit(1);
+
+    } else if (partes.length === 2) {
+      // --- obj.metodo(args) ---
+      const [objName, metodo] = partes;
+      const obj = variaveis[objName];
+      if (obj === undefined) {
+        console.log(`🔥 ERRO (Linha ${l_num}): Objeto ou array '${objName}' não existe!`);
+        process.exit(1);
+      }
+
+      if (Array.isArray(obj)) {
+        if (metodo === "BOTA_PRA_FUDER") { obj.push(args[0]); return undefined; }
+        if (metodo === "TAMANHO") return obj.length;
+        if (metodo === "PEGA") return obj[args[0]];
+        console.log(`🔥 ERRO (Linha ${l_num}): Método de array '${metodo}' não suportado!`);
+        process.exit(1);
+      }
+
+      if (obj.__class && ctx.classes[obj.__class] && ctx.classes[obj.__class][metodo]) {
+        const methodDef = ctx.classes[obj.__class][metodo];
+        const methodCtx = { variaveis: { O_PAI: obj }, funcoes: ctx.funcoes, classes: ctx.classes };
+        methodDef.params.forEach((p, i) => { methodCtx.variaveis[p] = args[i]; });
+        const res = await executarBloco(methodDef.bloco, methodCtx);
+        if (checkReturn(res)) return res.value;
+        return undefined;
+      }
+
+      console.log(`🔥 ERRO (Linha ${l_num}): Método '${metodo}' não encontrado em '${objName}'!`);
+      process.exit(1);
+
+    } else if (partes.length === 3) {
+      // FIX: --- obj.prop.metodo(args) — ex: O_PAI.NOTAS.BOTA_PRA_FUDER(N) ---
+      const [objName, propName, metodo] = partes;
+      const obj = variaveis[objName];
+      if (obj === undefined) {
+        console.log(`🔥 ERRO (Linha ${l_num}): Objeto '${objName}' não existe!`);
+        process.exit(1);
+      }
+      const target = obj[propName];
+      if (Array.isArray(target)) {
+        if (metodo === "BOTA_PRA_FUDER") { target.push(args[0]); return undefined; }
+        if (metodo === "TAMANHO") return target.length;
+        if (metodo === "PEGA") return target[args[0]];
+      }
+      console.log(`🔥 ERRO (Linha ${l_num}): Não foi possível chamar '${metodo}' em '${objName}.${propName}'!`);
+      process.exit(1);
+    }
+  };
+
   const ifStack = [];
-  let skipDepth = 0; 
+  let skipDepth = 0;
 
   for (let i = 0; i < linhas.length; i++) {
     let l_text = linhas[i].text;
@@ -149,13 +228,13 @@ async function executarBloco(linhas, ctx) {
 
     if (l_text.startsWith("QUE NAO VAI DAR O QUE?")) {
         const estadoIf = ifStack[ifStack.length - 1];
-        estadoIf.executar = false; 
+        estadoIf.executar = false;
         continue;
     }
 
     if (l_text === "NAO VAI DAR NAO") {
         const estadoIf = ifStack[ifStack.length - 1];
-        estadoIf.executar = false; 
+        estadoIf.executar = false;
         continue;
     }
 
@@ -163,36 +242,30 @@ async function executarBloco(linhas, ctx) {
     if (l_text.startsWith("QUE QUE CE QUER MONSTRAO?")) {
         const match = l_text.match(/\(\s*"([^"]+)"\s*,\s*&([a-zA-Z_]\w*)\s*\);?/);
         if (!match) { console.log(`🔥 ERRO SINTAXE INPUT (Linha ${l_num})`); process.exit(1); }
-        
+
         const format = match[1];
         const varName = match[2];
-        
-        // Pega o que estava invisível na memória e empurra como pergunta pro readline
+
         const promptString = stdoutBuffer;
         stdoutBuffer = "";
-        const inputReal = (await rl.question(promptString)).trim(); 
-        
+        const inputReal = (await rl.question(promptString)).trim();
+
         if (format === "%d") {
-            variaveis[varName] = parseInt(inputReal) || 0; 
+            variaveis[varName] = parseInt(inputReal) || 0;
         } else if (format === "%f") {
             variaveis[varName] = parseFloat(inputReal) || 0.0;
         } else {
-            variaveis[varName] = `"${inputReal}"`; 
+            variaveis[varName] = `"${inputReal}"`;
         }
         continue;
     }
-
-    const checkReturn = (res) => {
-        if (res && typeof res === 'object' && res.__isReturn) return true;
-        return false;
-    };
 
     if (l_text.startsWith("NEGATIVA BAMBAM")) {
         const match = l_text.match(/\((.*)\)/);
         const { bloco, novoI } = extrairBloco(i);
         while (getValue(match[1], l_num)) {
           let res = await executarBloco(bloco, ctx);
-          if (checkReturn(res)) return res; 
+          if (checkReturn(res)) return res;
         }
         i = novoI;
         continue;
@@ -204,16 +277,17 @@ async function executarBloco(linhas, ctx) {
         if (partes.length === 3) {
           const [init, cond, inc] = partes;
           let initMatch = init.match(/([a-zA-Z_]\w*)\s*=\s*(.*)/);
-          if(initMatch) variaveis[initMatch[1].trim()] = getValue(initMatch[2], l_num);
-          
+          if (initMatch) variaveis[initMatch[1].trim()] = getValue(initMatch[2], l_num);
+
           const { bloco, novoI } = extrairBloco(i);
           while (getValue(cond, l_num)) {
             let res = await executarBloco(bloco, ctx);
-            if (checkReturn(res)) return res; 
+            if (checkReturn(res)) return res;
 
+            // FIX: trim() no nome da variável para evitar "X " com espaço
             let incStr = inc.trim();
-            if (incStr.includes("++")) variaveis[incStr.replace("++", "")]++;
-            else if (incStr.includes("--")) variaveis[incStr.replace("--", "")]--;
+            if (incStr.includes("++")) variaveis[incStr.replace("++", "").trim()]++;
+            else if (incStr.includes("--")) variaveis[incStr.replace("--", "").trim()]--;
             else getValue(incStr, l_num);
           }
           i = novoI;
@@ -226,7 +300,7 @@ async function executarBloco(linhas, ctx) {
       const nomeClasse = match[1];
       const { bloco, novoI } = extrairBloco(i);
       ctx.classes[nomeClasse] = {};
-      
+
       for (let j = 0; j < bloco.length; j++) {
           let func_text = bloco[j].text;
           if (func_text.startsWith("OH O HOME AI PO")) {
@@ -261,11 +335,21 @@ async function executarBloco(linhas, ctx) {
     }
 
     if (l_text.includes("VEM MONSTRO")) {
+        // Padrão 1: MONSTRO varName = VEM MONSTRO
         let match = l_text.match(/MONSTRO\s+([a-zA-Z_]\w*)\s*=\s*VEM MONSTRO;?/);
-        if (!match) match = l_text.match(/^([a-zA-Z_]\w*)\s*=\s*VEM MONSTRO;?/);
+        if (match) { variaveis[match[1]] = []; continue; }
 
+        // Padrão 2: varName = VEM MONSTRO
+        match = l_text.match(/^([a-zA-Z_]\w*)\s*=\s*VEM MONSTRO;?/);
+        if (match) { variaveis[match[1]] = []; continue; }
+
+        // FIX Padrão 3: obj.prop = VEM MONSTRO (ex: O_PAI.NOTAS = VEM MONSTRO)
+        match = l_text.match(/^([a-zA-Z_]\w*)\.([a-zA-Z_]\w*)\s*=\s*VEM MONSTRO;?/);
         if (match) {
-            variaveis[match[1]] = []; 
+            const obj = variaveis[match[1]];
+            if (obj && typeof obj === 'object') {
+                obj[match[2]] = [];
+            }
             continue;
         }
     }
@@ -277,7 +361,7 @@ async function executarBloco(linhas, ctx) {
             const params = match[2].split(",").map(p => p.trim().replace("MONSTRO ", "")).filter(p => p.length > 0);
             const { bloco, novoI } = extrairBloco(i);
             ctx.funcoes[nomeFunc] = { params, bloco };
-            i = novoI; 
+            i = novoI;
             continue;
         }
     }
@@ -288,57 +372,65 @@ async function executarBloco(linhas, ctx) {
         return { __isReturn: true, value: val };
     }
 
+    // =======================================================
+    // FIX: Handler unificado e robusto para AJUDA O MALUCO TA DOENTE
+    // Trata 4 padrões:
+    //   1. MONSTRO var = AJUDA O MALUCO TA DOENTE path(args)
+    //   2. var = AJUDA O MALUCO TA DOENTE path(args)
+    //   3. AJUDA O MALUCO TA DOENTE path(args)   (standalone, sem retorno)
+    //   4. var = expr OP AJUDA O MALUCO TA DOENTE path(args)  (embutido em expressão)
+    // =======================================================
     if (l_text.includes("AJUDA O MALUCO TA DOENTE")) {
-        let match = l_text.match(/MONSTRO\s+([a-zA-Z_]\w*)\s*=\s*AJUDA O MALUCO TA DOENTE\s+([a-zA-Z_]\w*)(?:\.(\w+))?\((.*?)\);?/);
-        if (!match) match = l_text.match(/^([a-zA-Z_]\w*)\s*=\s*AJUDA O MALUCO TA DOENTE\s+([a-zA-Z_]\w*)(?:\.(\w+))?\((.*?)\);?/);
-        if (!match) {
-            let m = l_text.match(/AJUDA O MALUCO TA DOENTE\s+([a-zA-Z_]\w*)(?:\.(\w+))?\((.*?)\);?/);
-            if (m) match = [m[0], undefined, m[1], m[2], m[3]]; 
-        }
+        // Regex que captura: AJUDA O MALUCO TA DOENTE caminho.com.pontos(args)
+        const ajudaRE = /AJUDA O MALUCO TA DOENTE\s+([\w.]+)\((.*?)\)/;
 
-        if (match) {
-            const [, varTarget, nomeFuncOuObj, nomeMetodo, argsText] = match;
-            const args = argsText ? argsText.split(",").map(a => getValue(a.trim(), l_num)) : [];
-            let resultado = undefined;
-
-            if (nomeMetodo) {
-                const obj = variaveis[nomeFuncOuObj];
-                if (!obj) {
-                    console.log(`🔥 ERRO (Linha ${l_num}): Tentou acessar método '${nomeMetodo}' no objeto '${nomeFuncOuObj}' que não existe!`);
-                    process.exit(1);
-                }
-                
-                if (Array.isArray(obj)) {
-                    if (nomeMetodo === "BOTA_PRA_FUDER") obj.push(args[0]);
-                    else if (nomeMetodo === "TAMANHO") resultado = obj.length;
-                    else if (nomeMetodo === "PEGA") resultado = obj[args[0]];
-                } 
-                else if (obj.__class && ctx.classes[obj.__class] && ctx.classes[obj.__class][nomeMetodo]) {
-                    const methodDef = ctx.classes[obj.__class][nomeMetodo];
-                    const methodCtx = { variaveis: { O_PAI: obj }, funcoes: ctx.funcoes, classes: ctx.classes };
-                    methodDef.params.forEach((param, index) => { methodCtx.variaveis[param] = args[index]; });
-                    
-                    let callRes = await executarBloco(methodDef.bloco, methodCtx);
-                    if (checkReturn(callRes)) resultado = callRes.value;
-                } else {
-                    console.log(`🔥 ERRO (Linha ${l_num}): Método '${nomeMetodo}' não achado!`);
-                    process.exit(1);
-                }
-            } else {
-                if (ctx.funcoes[nomeFuncOuObj]) {
-                    const funcDef = ctx.funcoes[nomeFuncOuObj];
-                    const funcCtx = { variaveis: {}, funcoes: ctx.funcoes, classes: ctx.classes };
-                    funcDef.params.forEach((param, index) => { funcCtx.variaveis[param] = args[index]; });
-                    let callRes = await executarBloco(funcDef.bloco, funcCtx);
-                    if (checkReturn(callRes)) resultado = callRes.value;
-                } else {
-                    console.log(`🔥 ERRO (Linha ${l_num}): Função global '${nomeFuncOuObj}' não existe!`);
-                    process.exit(1);
-                }
-            }
-            if (varTarget) variaveis[varTarget] = resultado;
+        // Case 1: MONSTRO var = AJUDA O MALUCO TA DOENTE path(args)
+        let m = l_text.match(/^MONSTRO\s+([a-zA-Z_]\w*)\s*=\s*AJUDA O MALUCO TA DOENTE\s+([\w.]+)\((.*?)\);?$/);
+        if (m) {
+            const resultado = await executarChamadaPorPath(m[2], m[3], l_num);
+            variaveis[m[1]] = resultado;
             continue;
         }
+
+        // Case 2: var = AJUDA O MALUCO TA DOENTE path(args)
+        m = l_text.match(/^([a-zA-Z_]\w*)\s*=\s*AJUDA O MALUCO TA DOENTE\s+([\w.]+)\((.*?)\);?$/);
+        if (m) {
+            const resultado = await executarChamadaPorPath(m[2], m[3], l_num);
+            variaveis[m[1]] = resultado;
+            continue;
+        }
+
+        // Case 3: standalone — AJUDA O MALUCO TA DOENTE path(args)
+        m = l_text.match(/^AJUDA O MALUCO TA DOENTE\s+([\w.]+)\((.*?)\);?$/);
+        if (m) {
+            await executarChamadaPorPath(m[1], m[2], l_num);
+            continue;
+        }
+
+        // FIX Case 4: AJUDA embutido numa expressão
+        // ex: "S = S + AJUDA O MALUCO TA DOENTE O_PAI.NOTAS.PEGA(X)"
+        // ex: "TOTAL_COMPRA = TOTAL_COMPRA + AJUDA O MALUCO TA DOENTE OBJ.SUBTOTAL()"
+        const ajudaMatch = l_text.match(ajudaRE);
+        if (ajudaMatch) {
+            const resultado = await executarChamadaPorPath(ajudaMatch[1], ajudaMatch[2], l_num);
+            variaveis['__ajuda_temp__'] = resultado;
+            // Substitui a chamada AJUDA pela variável temporária na linha
+            const novaLinha = l_text.replace(ajudaMatch[0], '__ajuda_temp__');
+
+            // Tenta: MONSTRO var = expr
+            let mNova = novaLinha.match(/^MONSTRO\s+([a-zA-Z_]\w*)\s*=\s*(.*?);?$/);
+            if (mNova) {
+                variaveis[mNova[1]] = getValue(mNova[2], l_num);
+                continue;
+            }
+            // Tenta: var = expr
+            mNova = novaLinha.match(/^([a-zA-Z_]\w*)\s*=\s*(.*?);?$/);
+            if (mNova) {
+                variaveis[mNova[1]] = getValue(mNova[2], l_num);
+                continue;
+            }
+        }
+        continue;
     }
 
     // --- PRINT COM BUFFER INTELIGENTE ---
@@ -347,26 +439,26 @@ async function executarBloco(linhas, ctx) {
       if (match) {
           const inside = match[1];
           let endQuote = -1;
-          
+
           if (inside.startsWith('"')) {
               endQuote = inside.indexOf('"', 1);
               while (endQuote !== -1 && inside[endQuote - 1] === '\\') {
                   endQuote = inside.indexOf('"', endQuote + 1);
               }
           }
-          
+
           if (endQuote !== -1) {
               let formatString = inside.substring(1, endQuote);
               let rest = inside.substring(endQuote + 1).trim();
-              
+
               if (rest.startsWith(',')) {
                   let rawArgs = rest.substring(1).split(',').map(s => s.trim());
                   let argIndex = 0;
                   let finalString = formatString.replace(/%d|%s|%f/g, (tipo) => {
                       let val = getValue(rawArgs[argIndex++], l_num);
                       if (val === undefined) return "UNDEFINED";
-                      if (tipo === "%d") return Math.trunc(val); 
-                      if (tipo === "%f") return Number(val);     
+                      if (tipo === "%d") return Math.trunc(val);
+                      if (tipo === "%f") return Number(val);
                       return typeof val === 'string' ? val.replace(/"/g, "") : val;
                   });
                   stdoutBuffer += finalString.replace(/\\n/g, '\n');
@@ -379,7 +471,7 @@ async function executarBloco(linhas, ctx) {
               stdoutBuffer += finalStr;
           }
 
-          // Se a frase tem \n (quebra de linha), ele imprime na tela imediatamente
+          // Se a frase tem \n, imprime na tela imediatamente
           let lastNewline = stdoutBuffer.lastIndexOf('\n');
           if (lastNewline !== -1) {
               process.stdout.write(stdoutBuffer.substring(0, lastNewline + 1));
@@ -389,16 +481,18 @@ async function executarBloco(linhas, ctx) {
       continue;
     }
 
+    // --- DECLARAÇÃO DE VARIÁVEL ---
     if (l_text.startsWith("MONSTRO") && !l_text.includes("SAINDO DA JAULA") && !l_text.includes("VEM MONSTRO") && !l_text.includes("AJUDA O MALUCO")) {
       const match = l_text.match(/MONSTRO\s+([a-zA-Z_]\w*)\s*=\s*(.*);/);
       if (match) variaveis[match[1]] = getValue(match[2], l_num);
       else {
         const matchEmpty = l_text.match(/MONSTRO\s+([a-zA-Z_]\w*);/);
-        if(matchEmpty) variaveis[matchEmpty[1]] = 0;
+        if (matchEmpty) variaveis[matchEmpty[1]] = 0;
       }
       continue;
     }
 
+    // --- ATRIBUIÇÃO DE PROPRIEDADE DE OBJETO: obj.prop = expr ---
     if (/^[a-zA-Z_]\w*\.[a-zA-Z_]\w*\s*=/.test(l_text)) {
         const match = l_text.match(/^([a-zA-Z_]\w*)\.([a-zA-Z_]\w*)\s*=\s*(.*);/);
         if (match) {
@@ -410,6 +504,7 @@ async function executarBloco(linhas, ctx) {
         continue;
     }
 
+    // --- REATRIBUIÇÃO DE VARIÁVEL: var = expr ---
     if (/^[a-zA-Z_]\w*\s*=/.test(l_text) && !l_text.includes("SAINDO DA JAULA") && !l_text.includes("VEM MONSTRO") && !l_text.includes("AJUDA O MALUCO")) {
         const match = l_text.match(/^([a-zA-Z_]\w*)\s*=\s*(.*);/);
         if (match && variaveis[match[1]] !== undefined) {
@@ -425,7 +520,7 @@ async function executarBIRL() {
       console.log("🔥 ERRO FATAL: Faltou 'HORA DO SHOW' no começo do treino!");
       process.exit(1);
   }
-  
+
   const ctx = { variaveis: {}, funcoes: {}, classes: {} };
   const startIndex = linhasGlobais.findIndex(l => l.text === "HORA DO SHOW");
   const corpoPrograma = linhasGlobais.slice(startIndex + 1);
@@ -437,15 +532,15 @@ async function executarBIRL() {
       console.log(e.message);
       process.exit(1);
   }
-  
-  // Limpa o que sobrou no buffer invisivel
+
+  // Limpa o que sobrou no buffer invisível
   if (stdoutBuffer.length > 0) {
       process.stdout.write(stdoutBuffer);
   }
-  
+
   console.log("\n💪 TREINO CONCLUÍDO!");
-  rl.close(); 
-  process.exit(0); 
+  rl.close();
+  process.exit(0);
 }
 
 executarBIRL();
