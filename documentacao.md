@@ -1,195 +1,180 @@
-# 🏋️‍♂️ Documentação Oficial: BIRL OOP (V5 - O MISTER OLYMPIA)
+# 🏋️‍♂️ MANUAL DO OVERLOAD: O GUIA DEFINITIVO BIRL OOP V5.5
 
-Bem-vindo à jaula! A **BIRL** é uma linguagem de programação esotérica (esolang) com tipagem dinâmica inspirada no fisiculturismo e no humor brasileiro. Esta versão (V5) foi reescrita do zero sobre o Node.js para suportar **Programação Orientada a Objetos (POO)**, laços assíncronos, listas dinâmicas e tratamento de erros blindado.
+> "Não é só código, é estilo de vida, porra!" — Coach Antigravity
 
-Se você quer calcular a média da turma ou apenas codar por esporte, essa documentação tem tudo o que você precisa para sair do zero.
+Bem-vindo ao maior repositório de conhecimento sobre a **BIRL (Binary Interactive Runtime Language)**. Se você quer deixar de ser um "programador frango" e se tornar um **Monstro do Software**, este manual é a sua dieta restrita e seu treino pesado. 
 
----
-
-## 🏗️ 1. Estrutura Básica do Treino
-Todo programa em BIRL precisa de um aquecimento e de um alongamento final.
-
-- **`HORA DO SHOW`**: Abre o programa principal.
-- **`BIRL`**: Fecha blocos de código (`If`, `Loops`, `Funções`, `Classes` e o fim do programa).
+Este documento foi reescrito para ser **didático, técnico e brutal**.
 
 ---
 
-## 🧬 2. Variáveis (O Shape)
-As variáveis armazenam o estado do seu programa. Por padrão, elas assumem o valor dinamicamente, mas a declaração exige a palavra-chave.
-
-- **Declaração:** `MONSTRO`
-
-> **Nota:** Tipos clássicos do C como `FRANGO`, `TRAPEZIO` ou `BICEPS` são aceitos pelo compilador para manter a compatibilidade, mas o motor JavaScript por trás trata tudo dinamicamente.
-
----
-
-## 🗣️ 3. Entrada e Saída (I/O)
-Como o programa se comunica com o mundo exterior.
-
-### Saída (Print)
-- **`CE QUER VER ESSA PORRA?`**: Imprime no terminal. Suporta formatação no estilo da linguagem C.
-    - `%d`: Força um número Inteiro (arranca casas decimais).
-    - `%f`: Formata como Float (ponto flutuante).
-    - `%s`: Formata como String.
-
-### Entrada (Scanf Síncrono)
-- **`QUE QUE CE QUER MONSTRAO?`**: Pausa a execução e aguarda o usuário digitar no teclado.
+## 📋 SUMÁRIO DO TREINO
+1. [Módulo 1: O Primeiro Supino (Hello World)](#módulo-1)
+2. [Módulo 2: O Peso da Memória (Variáveis)](#módulo-2)
+3. [Módulo 3: O Personal Trainer (Input/Output)](#módulo-3)
+4. [Módulo 4: O Ciclo das Condições (Lógica)](#módulo-4)
+5. [Módulo 5: Treino até a Falha (Loops)](#módulo-5)
+6. [Módulo 6: O Suplemento de Dados (Lists/Arrays)](#módulo-6)
+7. [Módulo 7: A Engenharia da Jaula (OOP Avançado)](#módulo-7)
+8. [Módulo 8: Anatomia do Monstro (Como o interpretador funciona)](#módulo-8)
+9. [Módulo 9: Prevenção de Lesões (Solução de Erros)](#módulo-9)
 
 ---
 
-## 🔀 4. Controle de Fluxo (Condicionais)
-Avalia expressões lógicas. **Atenção:** Uma cadeia inteira de `IF`/`ELSE IF`/`ELSE` só exige um único `BIRL` no final de toda a estrutura.
+<a name="módulo-1"></a>
+## 🏗️ MÓDULO 1: O PRIMEIRO SUPINO (HELLO WORLD)
 
-- **If:** `ELE QUE A GENTE QUER? (condição)`
-- **Else If:** `QUE NAO VAI DAR O QUE? (condição)`
-- **Else:** `NAO VAI DAR NAO`
+Todo mestre começou levantando a barra vazia. No BIRL, o programa é o seu treino.
 
----
+**Analogia:** O `HORA DO SHOW` é o momento que você pisa na academia. O `BIRL` final é quando você joga a toalha no ombro e vai embora.
 
-## 🔄 5. Laços de Repetição (Loops)
-Para treinar até a falha.
-
-### While
-- **`NEGATIVA BAMBAM`**: Executa enquanto a condição for verdadeira.
-
-### For
-- **`MAIS QUERO MAIS`**: Loop com inicialização, condição e incremento.
+```birl
+HORA DO SHOW
+    CE QUER VER ESSA PORRA? ("BORA CUMPADE, MEU PRIMEIRO SHAPE!\n");
+BIRL
+```
 
 ---
 
-## 📦 6. Listas (Arrays Dinâmicos)
-O BIRL V5 introduziu manipulação de memória em lote.
+<a name="módulo-2"></a>
+## 🧬 MÓDULO 2: O PESO DA MEMÓRIA (VARIÁVEIS)
 
-- **Criar lista vazia:** `VEM MONSTRO`
-- **Adicionar item (Push):** `.BOTA_PRA_FUDER(valor)`
-- **Pegar tamanho (Length):** `.TAMANHO()`
-- **Acessar índice:** `.PEGA(index)`
+No BIRL, não usamos tipos fraquinhos. Aqui tudo é **MONSTRO**. Um `MONSTRO` pode guardar qualquer coisa: números, nomes, ou até objetos complexos.
 
----
+**Por que `MONSTRO`?** Porque ele é dinâmico, ele cresce conforme a necessidade.
 
-## 🛠️ 7. Funções Globais
-Crie receitas de treino customizadas e chame de qualquer lugar.
-
-- **Definir Função:** `OH O HOME AI PO (MONSTRO NOME_FUNC(MONSTRO ARG1))`
-- **Retornar Valor:** `BORA CUMPADE`
-- **Chamar Função:** `AJUDA O MALUCO TA DOENTE`
+| Comando | Descrição |
+| :--- | :--- |
+| `MONSTRO X = 10;` | Cria um espaço na memória guardando o número 10. |
+| `MONSTRO NOME = "BAMBAM";` | Guarda uma string (texto). |
+| `MONSTRO PESO = 100.5;` | Guarda um valor decimal (Float). |
 
 ---
 
-## 🏛️ 8. Orientação a Objetos (POO)
-O poder máximo da linguagem. Suporta encapsulamento, atributos locais e métodos.
+<a name="módulo-3"></a>
+## 🗣️ MÓDULO 3: O PERSONAL TRAINER (I/O)
 
-- **Criar Classe:** `JAULA NomeDaClasse`
-- **Instanciar Objeto:** `SAINDO DA JAULA NomeDaClasse`
-- **Referência Interna (This):** `O_PAI`
+Como o programa se comunica com você.
 
----
+### Saída de Dados
+`CE QUER VER ESSA PORRA?` é o seu `printf`.
+- `%d`: Para números inteiros (ex: 37).
+- `%f`: Para números decimais (ex: 45.5).
+- `%s`: Para textos (ex: "Jaula").
 
-## ⚙️ 9. Como o Interpretador Funciona (Under the Hood)
-Para quem quiser entender o código `index.js` (O Motor do Compilador V5).
-
-- **Lexer e Mapeamento de Linhas:** O interpretador não usa `eval()` em strings cruas da forma insegura antiga. Ele lê o arquivo, arranca os comentários (`//`), ignora linhas vazias e cria um array de objetos `{ text: "comando", line: 15 }`. Isso garante que, se houver um erro, o Stack Trace aponte a linha exata do erro no `.birl`, igual aos compiladores profissionais.
-
-- **Lógica Blindada de Escopo (`skipDepth`):** O maior desafio de interpretadores baseados em linha é aninhar blocos. Se um `IF` der falso, o motor precisa pular o código. O `skipDepth` conta quantas vezes blocos internos (como um `FOR` dentro de um `IF` ignorado) são abertos e fechados. Ele só destrói o contexto do `IF` principal quando o `skipDepth` volta a zero.
-
-- **Return Bubbling (`__isReturn`):** No JavaScript assíncrono, um comando de retorno (`BORA CUMPADE`) precisa furar a bolha de possíveis loops e condicionais aninhados para devolver o valor à função original. O motor encapsula o retorno em um objeto especial `{ __isReturn: true, value: val }` e passa ele "para cima" de forma recursiva.
-
-- **Avaliação Segura (`new Function`):** As matemáticas e lógicas (`X > 2`, `A + B`) são executadas gerando contextos isolados via `new Function(...keys, return expr)`. Isso injeta apenas as variáveis globais ou do objeto (`O_PAI`) sem permitir que o código vaze para a memória do Node.js hospedeiro.
-
-
-# 🏋️‍♂️ Dicionário de Sintaxe: BIRL OOP V5 (Cheat Sheet)
-
-Um guia rápido e direto com todas as palavras-chave, comandos e sintaxes da linguagem BIRL. Guarde isso na sua ficha de treino!
+### Entrada de Dados
+`QUE QUE CE QUER MONSTRAO?` é o seu `scanf`.
+**IMPORTANTE:** Você precisa passar o endereço da variável com `&`.
+```birl
+MONSTRO IDADE;
+CE QUER VER ESSA PORRA? ("QUAL TUA IDADE? ");
+QUE QUE CE QUER MONSTRAO? ("%d", &IDADE);
+```
 
 ---
 
-## 🏗️ Estrutura do Programa
-Comandos usados para delimitar onde o código começa e termina.
+<a name="módulo-4"></a>
+## 🔀 MÓDULO 4: O CICLO DAS CONDIÇÕES (LÓGICA)
 
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
+Aqui você decide se o treino continua ou se você cataboliza.
+
+**A REGRA DE OURO DO SHAPE:** O BIRL V5.5 usa uma sintaxe de "Blidagem Unificada". Se você tem um `IF`, vários `ELSE IF` e um `ELSE`, você só usa **UM BIRL** no final de tudo.
+
+```birl
+ELE QUE A GENTE QUER? (FORCA > 100)
+    CE QUER VER ESSA PORRA? ("O CARA É UM MUTANTE!\n");
+QUE NAO VAI DAR O QUE? (FORCA > 50)
+    CE QUER VER ESSA PORRA? ("ESTÁ NO CAMINHO!\n");
+NAO VAI DAR NAO
+    CE QUER VER ESSA PORRA? ("PRECISA TOMAR MAIS WHEY!\n");
+BIRL // <- FECHA TUDO O QUE FOI ABERTO ACIMA
+```
+
+---
+
+<a name="módulo-5"></a>
+## 🔄 MÓDULO 5: TREINO ATÉ A FALHA (LOOPS)
+
+Se não houver repetição, o músculo não entende o recado.
+
+- **`NEGATIVA BAMBAM (condição)`**: Repete enquanto a condição for **verdadeira** (While).
+- **`MAIS QUERO MAIS (init; cond; inc)`**: Loop controlado para séries específicas (For).
+
+```birl
+MAIS QUERO MAIS (SERIE = 1; SERIE <= 4; SERIE++)
+    CE QUER VER ESSA PORRA? ("SÉRIE %d CONCLUÍDA!\n", SERIE);
+BIRL
+```
+
+---
+
+<a name="módulo-6"></a>
+## 📦 MÓDULO 6: O SUPLEMENTO DE DADOS (LISTS)
+
+Grandes treinos exigem grandes estoques. Usamos as **LISTAS** para guardar múltiplos monstros.
+
+- `MONSTRO MINHA_LISTA = VEM MONSTRO;` (Cria a mochila de suplementos).
+- `AJUDA O MALUCO TA DOENTE MINHA_LISTA.BOTA_PRA_FUDER(X);` (Adiciona X na mochila).
+- `AJUDA O MALUCO TA DOENTE MINHA_LISTA.PEGA(0);` (Pega o primeiro item).
+
+---
+
+<a name="módulo-7"></a>
+## 🏛️ MÓDULO 7: A ENGENHARIA DA JAULA (OOP AVANÇADO)
+
+O ápice! Criar **JAULAS** (classes) permite que você crie moldes para seus atletas.
+
+### Anatomia da Jaula:
+1.  **`JAULA Nome`**: Define a jaula.
+2.  **`O_PAI`**: É a referência interna. Se você quer mexer numa característica do próprio atleta dentro da jaula, use `O_PAI.atributo`.
+3.  **`INIT`**: O método obrigatório para dar o pré-treino no objeto (Construtor).
+
+```birl
+JAULA Produto
+    OH O HOME AI PO (MONSTRO INIT(MONSTRO N, MONSTRO P))
+        O_PAI.NOME = N;
+        O_PAI.PRECO = P;
+        BORA CUMPADE 1; // Retorno de sucesso
+    BIRL
+BIRL
+
+// Usando:
+MONSTRO P1 = SAINDO DA JAULA Produto;
+AJUDA O MALUCO TA DOENTE P1.INIT("WHEY PROTEIN", 150);
+```
+
+---
+
+<a name="módulo-8"></a>
+## ⚙️ MÓDULO 8: ANATOMIA DO MONSTRO (O INTERPRETADOR)
+
+Para ser mestre, você precisa saber como a máquina funciona por baixo. O `index.js` não é mágica, é ciência.
+
+1.  **Skip Mode (`skipDepth`)**: Quando uma condição (`IF`) é falsa, o interpretador não para; ele entra em "Modo Skip". Ele sai lendo as linhas freneticamente, mas sem executar nada, apenas contando quantos `BIRLS` ele encontra para saber quando o bloco falso acabou.
+2.  **Return Bubbling**: Quando você usa `BORA CUMPADE` dentro de um `FOR` que está dentro de uma função, o valor precisa "subir" todas as camadas. O motor usa um objeto de sinalização `__isReturn` para avisar: "Parem tudo, temos um resultado!".
+3.  **AJUDA Contexto**: O comando `AJUDA O MALUCO TA DOENTE` é o que diz ao interpretador para mudar o foco da execução para dentro de uma função, criando um novo escopo de memória.
+
+---
+
+<a name="módulo-9"></a>
+## 🚑 MÓDULO 9: PREVENÇÃO DE LESÕES (SOLUÇÃO DE ERROS)
+
+| Sintoma | Causa Provável | Remédio |
 | :--- | :--- | :--- |
-| `HORA DO SHOW` | `main() {` | A primeira linha obrigatória do arquivo. Inicia o programa. |
-| `BIRL` | `}` | Fecha qualquer bloco de código (If, For, While, Função, Classe e o próprio programa). |
-| `//` | `//` | Comentário de uma linha. Tudo após ele é ignorado pelo compilador. |
+| `Cannot set properties of undefined` | **BIRL VILÃO!** Você fechou um `IF` antes do `ELSE`. | Remova o `BIRL` que está entre o `IF` e o `NAO VAI DAR NAO`. |
+| A variável mudou do nada | **Conflito Global.** Você usou o mesmo nome de `MONSTRO` no programa principal e esquematizou no `INIT`. | Use nomes únicos ou use sempre `O_PAI` dentro das jaulas. |
+| O programa ignora a função | **Esqueceu a AJUDA.** | Toda chamada de função deve começar com `AJUDA O MALUCO TA DOENTE`. |
 
 ---
 
-## 🧬 Variáveis e Tipos de Dados
-Palavras usadas para declarar espaços na memória.
+## 🏆 DESAFIO OLYMPIA
 
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `MONSTRO` | `let` / `int` | Declaração padrão de variável dinâmica. |
-| `FRANGO` | `char` | Aceito pelo Lexer, mas tratado como dinâmico. |
-| `MONSTRINHO` | `short` | Aceito pelo Lexer, mas tratado como dinâmico. |
-| `MONSTRAO` | `long` | Aceito pelo Lexer, mas tratado como dinâmico. |
-| `TRAPEZIO` | `float` | Aceito pelo Lexer, mas tratado como dinâmico. |
-| `BICEPS` | `unsigned` | Aceito pelo Lexer, mas tratado como dinâmico. |
+Tente escrever um programa que:
+1. Crie uma **JAULA** de `Calculadora`.
+2. Tenha um método `SOMAR`.
+3. Peça dois números ao usuário.
+4. Use a `Calculadora` para mostrar o resultado.
 
----
+**"SABER É PODER, MAS TREINAR É CRESCER!"** 👊🏋️‍♂️
 
-## 🗣️ Entrada e Saída (I/O)
-Comandos para interagir com o usuário via terminal.
-
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `CE QUER VER ESSA PORRA? (...)` | `printf()` / `console.log()` | Imprime dados na tela. Suporta concatenação e formatação (ex: `%d`). |
-| `QUE QUE CE QUER MONSTRAO? (...)`| `scanf()` / `prompt()` | Pausa o programa e aguarda o usuário digitar um valor no teclado. |
-| `"%d"` | `%d` | Máscara de formatação: Força o valor a ser um número **Inteiro**. |
-| `"%f"` | `%f` | Máscara de formatação: Força o valor a ser um número **Float** (Decimal). |
-| `"%s"` | `%s` | Máscara de formatação: Força o valor a ser uma **String** (Texto). |
-
----
-
-## 🔀 Controle de Fluxo (Condicionais)
-Estruturas de decisão. *Lembre-se: uma cadeia inteira de ifs só exige um `BIRL` no final.*
-
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `ELE QUE A GENTE QUER? (...)` | `if (...)` | Executa o bloco se a condição for verdadeira. |
-| `QUE NAO VAI DAR O QUE? (...)` | `else if (...)` | Testado caso o `IF` anterior seja falso. |
-| `NAO VAI DAR NAO` | `else` | Executado se todas as condições anteriores falharem. |
-
----
-
-## 🔄 Laços de Repetição (Loops)
-Estruturas para repetição de código.
-
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `NEGATIVA BAMBAM (...)` | `while (...)` | Loop contínuo enquanto a condição for verdadeira. |
-| `MAIS QUERO MAIS (...)` | `for (...)` | Loop estruturado com (inicialização; condição; incremento). |
-
----
-
-## 📦 Listas (Arrays Dinâmicos)
-Sintaxe para manipular coleções de dados.
-
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `VEM MONSTRO` | `[]` | Inicializa um array dinâmico vazio na memória. |
-| `.BOTA_PRA_FUDER(valor)` | `.push(valor)` | Adiciona um novo elemento ao final da lista. |
-| `.TAMANHO()` | `.length` | Retorna o número de elementos contidos na lista. |
-| `.PEGA(index)` | `array[index]` | Retorna o valor contido na posição especificada pelo índice. |
-
----
-
-## 🛠️ Funções Globais
-Blocos de código reutilizáveis.
-
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `OH O HOME AI PO (...)` | `function nome(...)` | Declara a assinatura de uma função ou método. |
-| `BORA CUMPADE` | `return` | Retorna um valor da função e encerra sua execução atual. |
-| `AJUDA O MALUCO TA DOENTE`| `func()` / `obj.metodo()` | Comando obrigatório para **chamar** (executar) qualquer função ou método. |
-
----
-
-## 🏛️ Orientação a Objetos (POO)
-Sintaxe para criar classes e instanciar objetos.
-
-| Comando / Sintaxe | Equivalente (C/JS) | Descrição |
-| :--- | :--- | :--- |
-| `JAULA` | `class` | Declara o escopo de uma Classe. |
-| `SAINDO DA JAULA` | `new` | Instancia um novo Objeto a partir de uma Jaula (Classe) existente. |
-| `O_PAI` | `this` | Referência à própria instância do objeto (usado dentro dos métodos para acessar os próprios atributos). |
+*Documentação mantida pela Equipe de Elite: Marcus e Adam.*

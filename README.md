@@ -6,6 +6,14 @@ Esse sistema foi forjado no aço pelo **Marcus e o Adam** (Desenvolvedores Sêni
 
 ---
 
+## 📖 ACESSO RÁPIDO
+> "Saber é poder, mas treinar é crescer!"
+
+Aprenda a programar nessa linguagem de monstros com o nosso guia oficial:
+👉 **[VER DOCUMENTAÇÃO TÉCNICA (GUIA MR. OLYMPIA)](./documentacao.md)**
+
+---
+
 ## 🛠️ A ARQUITETURA DO MONSTRO
 
 O sistema é dividido em duas partes fundamentais, igual um treino de Peito e Tríceps:
