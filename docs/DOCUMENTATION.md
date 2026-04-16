@@ -1,4 +1,4 @@
-<![CDATA[# BIRL — Documentação Oficial 💪
+# BIRL — Documentação Oficial 💪
 
 > *"Bambam's It's-show-time Recursive Language"*
 > A linguagem de programação que transforma código em treino de academia.
@@ -1143,4 +1143,3 @@ SOFTWARE.
 *"O código que você grita, não sussurra."*
 
 </div>
-]]>

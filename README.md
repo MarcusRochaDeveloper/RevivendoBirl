@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 💪 BIRL
 
@@ -394,4 +394,3 @@ Distribuído sob a licença **MIT**. Veja [LICENSE](LICENSE) para mais informaç
 ⭐ Se curtiu, dá uma estrela no repo! ⭐
 
 </div>
-]]>

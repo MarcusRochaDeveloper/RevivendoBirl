@@ -1,4 +1,4 @@
-<![CDATA[# 🚀 Introdução à Linguagem BIRL
+# 🚀 Introdução à Linguagem BIRL
 
 > "Ajuda o maluco que tá doente! Aqui é bodybuilder, porra!" — Kleber Bambam
 
@@ -63,4 +63,4 @@ Hello, World!
 **Não existe "Hello World" em BIRL. Existe HORA DO SHOW.** 💪
 
 </div>
-]]>
+
