@@ -1,0 +1,14 @@
+{
+  "name": "birl-monorepo",
+  "private": true,
+  "description": "Ecossistema Completo da Linguagem BIRL",
+  "workspaces": [
+    "birl-runtime",
+    "birl-language-server",
+    "birl-vscode-extension"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd birl-language-server && npm install && cd ../birl-vscode-extension && npm install",
+    "test:cli": "node birl-runtime/bin/birl.js programa.birl"
+  }
+}

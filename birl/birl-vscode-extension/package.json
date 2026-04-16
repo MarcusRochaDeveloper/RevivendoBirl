@@ -1,0 +1,62 @@
+{
+  "name": "birl-lang",
+  "displayName": "BIRL Language Support",
+  "description": "Suporte profissional para a linguagem BIRL. Autocomplete, Diagnósticos e Execução Direta.",
+  "version": "1.0.0",
+  "publisher": "marcus-e-adam",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "birl",
+        "aliases": [
+          "BIRL",
+          "birl"
+        ],
+        "extensions": [
+          ".birl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "birl",
+        "scopeName": "source.birl",
+        "path": "./syntaxes/birl.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "birl.run",
+        "title": "BIRL: Executar Treino Monstro"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "birl.run",
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b",
+        "when": "editorLangId == birl"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm install",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@vscode/vsce": "^2.15.0"
+  }
+}

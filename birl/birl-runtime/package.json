@@ -1,0 +1,31 @@
+{
+  "name": "birl-lang",
+  "version": "1.0.0",
+  "description": "Interpretador CLI Profissional para a linguagem BIRL. BORA CUMPADE!",
+  "main": "./core/interpreter.js",
+  "bin": {
+    "birl": "./bin/birl.js"
+  },
+  "files": [
+    "bin/",
+    "core/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "birl",
+    "bodybuilder",
+    "language",
+    "esoteric",
+    "bambam"
+  ],
+  "author": "Marcus e Adam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarcusRochaDeveloper/RevivendoBirl.git"
+  }
+}

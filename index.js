@@ -8,11 +8,12 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+let arquivoParaExecutar = process.argv[2] || "programa.birl";
 let codigoRaw = "";
 try {
-    codigoRaw = fs.readFileSync("programa.birl", "utf8");
+    codigoRaw = fs.readFileSync(arquivoParaExecutar, "utf8");
 } catch (e) {
-    console.log("🔥 ERRO FATAL: Cadê o arquivo 'programa.birl', monstro?");
+    console.log(`🔥 ERRO FATAL: Cadê o arquivo '${arquivoParaExecutar}', monstro?`);
     process.exit(1);
 }
 

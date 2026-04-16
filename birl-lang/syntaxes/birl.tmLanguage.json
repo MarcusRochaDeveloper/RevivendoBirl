@@ -1,0 +1,75 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "BIRL",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.birl",
+					"match": "\\b(HORA DO SHOW|BIRL|ELE QUE A GENTE QUER\\?|QUE NAO VAI DAR O QUE\\?|NAO VAI DAR NAO|NEGATIVA BAMBAM|MAIS QUERO MAIS|BORA CUMPADE|SAINDO DA JAULA|VEM MONSTRO)\\b"
+				},
+				{
+					"name": "storage.type.birl",
+					"match": "\\b(MONSTRO|JAULA)\\b"
+				},
+				{
+					"name": "variable.language.birl",
+					"match": "\\b(O_PAI)\\b"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "entity.name.function.birl",
+					"match": "\\b(CE QUER VER ESSA PORRA\\?|QUE QUE CE QUER MONSTRAO\\?|AJUDA O MALUCO TA DOENTE|OH O HOME AI PO)\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.birl",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.birl",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.birl",
+					"match": "\\b\\d+(\\.\\d+)?\\b"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.birl",
+					"match": "//.*$"
+				}
+			]
+		}
+	},
+	"scopeName": "source.birl"
+}

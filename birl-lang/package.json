@@ -1,0 +1,62 @@
+{
+  "name": "birl-lang",
+  "displayName": "BIRL Language Support",
+  "description": "Suporte básico para a linguagem BIRL (OOP Edition)",
+  "version": "1.0.0",
+  "publisher": "marcus-e-adam",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "birl",
+        "aliases": [
+          "BIRL",
+          "birl"
+        ],
+        "extensions": [
+          ".birl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "birl",
+        "scopeName": "source.birl",
+        "path": "./syntaxes/birl.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "birl.run",
+        "title": "BIRL: Executar Treino Monstro"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "birl.run",
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b",
+        "when": "editorLangId == birl"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "birl.run",
+          "group": "navigation",
+          "when": "editorLangId == birl"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "postinstall": "echo 'BORA CUMPADE! Extensão pronta.'"
+  }
+}
