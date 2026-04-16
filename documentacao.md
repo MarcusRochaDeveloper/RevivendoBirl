@@ -1,6 +1,6 @@
 # 🏋️‍♂️ MANUAL DO OVERLOAD: O GUIA DEFINITIVO BIRL OOP V5.5
 
-> "Não é só código, é estilo de vida, porra!" — Coach Antigravity
+> "Não é só código, é estilo de vida, porra!" — Coach Claudinho + Antigravity + Reza Braba + Muito tempo livre
 
 Bem-vindo ao maior repositório de conhecimento sobre a **BIRL (Binary Interactive Runtime Language)**. Se você quer deixar de ser um "programador frango" e se tornar um **Monstro do Software**, este manual é a sua dieta restrita e seu treino pesado. 
 
