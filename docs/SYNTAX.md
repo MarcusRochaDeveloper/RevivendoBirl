@@ -1,107 +1,135 @@
-# 📜 Especificação de Sintaxe: BIRL V5.5
+# BIRL — Referência Rápida de Sintaxe 💪
 
-Este documento fornece a definição formal da gramática e dos tokens da linguagem BIRL.
-
----
-
-## 1. Léxico e Tokens
-
-### 1.1 Identificadores
-Os identificadores no BIRL seguem a regra padrão de linguagens procedurais:
-- Deve começar com uma letra (`a-z`, `A-Z`) ou underscore (`_`).
-- Pode conter dígitos (`0-9`).
-- **Case Sensitivity**: `MONSTRO X` é diferente de `MONSTRO x`.
-
-### 1.2 Palavras-Chave Reservadas
-| Categoria | Keywords |
-| :--- | :--- |
-| **Estrutura** | `HORA DO SHOW`, `BIRL` |
-| **Tipos** | `MONSTRO` |
-| **Controle** | `ELE QUE A GENTE QUER?`, `QUE NAO VAI DAR O QUE?`, `NAO VAI DAR NAO` |
-| **Loops** | `NEGATIVA BAMBAM`, `MAIS QUERO MAIS` |
-| **OOP** | `JAULA`, `SAINDO DA JAULA`, `O_PAI`, `OH O HOME AI PO` |
-| **I/O** | `CE QUER VER ESSA PORRA?`, `QUE QUE CE QUER MONSTRAO?` |
-| **Funções** | `AJUDA O MALUCO TA DOENTE`, `BORA CUMPADE` |
-
-### 1.3 Literais
-- **Strings**: Delimitadas por aspas duplas: `"Sou Monstro"`. Suporta escape de nova linha `\n`.
-- **Inteiros**: Sequência de dígitos: `37`, `45`.
-- **Pontos Flutuantes**: Dígitos com ponto decimal: `100.5`, `0.75`.
+Guia compacto com todos os comandos da linguagem BIRL.
 
 ---
 
-## 2. Gramática de Declarações
+## Estrutura mínima
 
-### 2.1 Declaração de Variáveis
-A sintaxe obrigatória utiliza o prefixo `MONSTRO`.
 ```birl
-MONSTRO <nome> [= <expressão>];
+HORA DO SHOW
+    // seu código aqui
+BIRL
 ```
-*Nota: Se não for inicializada, o valor padrão é `0`.*
-
-### 2.2 Expressões e Operadores
-O BIRL utiliza o motor JavaScript para avaliação de expressões, suportando:
-- **Aritméticos**: `+`, `-`, `*`, `/`, `%`
-- **Comparação**: `==`, `!=`, `<`, `>`, `<=`, `>=`
-- **Lógicos**: `&&`, `||`, `!`
-- **Parentetização**: `(a + b) * c`
 
 ---
 
-## 3. Estruturas de Controle
+## Variáveis
 
-### 3.1 Condicional (If-Else)
-A estrutura de decisão no BIRL V5.5 é unificada.
 ```birl
-ELE QUE A GENTE QUER? (condicao)
-    // Bligo IF
-QUE NAO VAI DAR O QUE? (condicao)
-    // Bloco ELSE IF
+MONSTRO X = 10;          // declaração com valor
+MONSTRO Y;               // declaração sem valor (= 0)
+X = 42;                  // reatribuição
+```
+
+## I/O
+
+```birl
+// Output
+CE QUER VER ESSA PORRA? ("texto\n");
+CE QUER VER ESSA PORRA? ("Nome: %s, Idade: %d\n", NOME, IDADE);
+
+// Input
+QUE QUE CE QUER MONSTRAO? ("%d", &VARIAVEL);   // inteiro
+QUE QUE CE QUER MONSTRAO? ("%f", &VARIAVEL);   // float
+QUE QUE CE QUER MONSTRAO? ("%s", &VARIAVEL);   // string
+```
+
+## Controle de fluxo
+
+```birl
+// If / Else If / Else
+ELE QUE A GENTE QUER? (condição)
+    // ...
+QUE NAO VAI DAR O QUE? (outra_condição)
+    // ...
 NAO VAI DAR NAO
-    // Bloco ELSE
-BIRL // Encerramento Único
-```
-
-### 3.2 Laço `MAIS QUERO MAIS` (For)
-```birl
-MAIS QUERO MAIS (inicializacao; condicao; incremento)
-    // Instruções
+    // ...
 BIRL
-```
-*Suporta operadores simplificados: `i++` e `i--`.*
 
----
+// While
+NEGATIVA BAMBAM (condição)
+    // ...
+BIRL
 
-## 4. Entrada e Saída (I/O)
-
-### 4.1 Saída (`CE QUER VER ESSA PORRA?`)
-Assinatura: `CE QUER VER ESSA PORRA? (formato [, argumentos]);`
-Mascaras suportadas:
-- `%d`: Inteiro.
-- `%f`: Float.
-- `%s`: String.
-
-### 4.2 Entrada (`QUE QUE CE QUER MONSTRAO?`)
-Assinatura: `QUE QUE CE QUER MONSTRAO? (formato, &variavel);`
-*O caractere `&` é obrigatório para indicar a passagem por referência.*
-
----
-
-## 5. Funções Globais
-
-Definição de uma função:
-```birl
-OH O HOME AI PO (MONSTRO <nome>(MONSTRO p1, MONSTRO p2))
-    // Instruções
-    BORA CUMPADE <valor>;
+// For
+MAIS QUERO MAIS (I = 0; I < 10; I++)
+    // ...
 BIRL
 ```
 
-Chamada de uma função:
+## Funções
+
 ```birl
-MONSTRO X = AJUDA O MALUCO TA DOENTE <nome>(args);
+// Declarar
+OH O HOME AI PO (MONSTRO NOME_FUNC(MONSTRO P1, MONSTRO P2))
+    BORA CUMPADE P1 + P2;
+BIRL
+
+// Chamar
+AJUDA O MALUCO TA DOENTE NOME_FUNC(1, 2);
+
+// Com retorno
+MONSTRO R = AJUDA O MALUCO TA DOENTE NOME_FUNC(1, 2);
+```
+
+## Arrays
+
+```birl
+MONSTRO LISTA = VEM MONSTRO;                               // criar
+AJUDA O MALUCO TA DOENTE LISTA.BOTA_PRA_FUDER(valor);      // push
+MONSTRO T = AJUDA O MALUCO TA DOENTE LISTA.TAMANHO();      // length
+MONSTRO V = AJUDA O MALUCO TA DOENTE LISTA.PEGA(0);        // get [0]
+```
+
+## Classes (OOP)
+
+```birl
+JAULA NomeClasse
+    OH O HOME AI PO (MONSTRO INIT(MONSTRO PARAM))
+        O_PAI.ATTR = PARAM;
+        BORA CUMPADE 1;
+    BIRL
+    OH O HOME AI PO (MONSTRO METODO())
+        // O_PAI = this/self
+        BORA CUMPADE O_PAI.ATTR;
+    BIRL
+BIRL
+
+MONSTRO OBJ = SAINDO DA JAULA NomeClasse;
+AJUDA O MALUCO TA DOENTE OBJ.INIT("valor");
+AJUDA O MALUCO TA DOENTE OBJ.METODO();
+```
+
+## Comentários
+
+```birl
+// Comentário de uma linha (único tipo suportado)
 ```
 
 ---
 
-**"O CÓDIGO É SÓ O REFLEXO DO SEU TREINO!"** 👊🏋️‍♂️
+## Tabela de equivalência
+
+| BIRL | C / Java / Python |
+|------|-------------------|
+| `HORA DO SHOW` | `main()` |
+| `BIRL` | `}` |
+| `MONSTRO X = 10;` | `int x = 10;` |
+| `CE QUER VER ESSA PORRA?` | `printf()` / `print()` |
+| `QUE QUE CE QUER MONSTRAO?` | `scanf()` / `input()` |
+| `ELE QUE A GENTE QUER?` | `if` |
+| `QUE NAO VAI DAR O QUE?` | `else if` |
+| `NAO VAI DAR NAO` | `else` |
+| `NEGATIVA BAMBAM` | `while` |
+| `MAIS QUERO MAIS` | `for` |
+| `OH O HOME AI PO` | `function` / `def` |
+| `AJUDA O MALUCO TA DOENTE` | chamada de função |
+| `BORA CUMPADE` | `return` |
+| `JAULA` | `class` |
+| `SAINDO DA JAULA` | `new` |
+| `O_PAI` | `this` / `self` |
+| `VEM MONSTRO` | `[]` / `new Array()` |
+| `BOTA_PRA_FUDER` | `push()` |
+| `TAMANHO` | `length` |
+| `PEGA` | `[index]` |

@@ -1,0 +1,14 @@
+{
+  "name": "birl-monorepo",
+  "private": true,
+  "description": "Distribuição Oficial da Linguagem BIRL",
+  "workspaces": [
+    "birl-cli",
+    "birl-vscode-extension"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd birl-vscode-extension && npm install",
+    "package:extension": "cd birl-vscode-extension && vsce package",
+    "test:cli": "node birl-cli/index.js programa.birl"
+  }
+}

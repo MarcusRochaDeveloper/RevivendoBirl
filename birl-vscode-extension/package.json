@@ -1,14 +1,25 @@
 {
-  "name": "birl-lang",
+  "name": "birl-vscode-extension",
   "displayName": "BIRL Language Support",
-  "description": "Suporte básico para a linguagem BIRL (OOP Edition)",
+  "description": "Syntax highlighting e execução para a linguagem BIRL 💪",
   "version": "1.0.0",
   "publisher": "marcus-e-adam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarcusRochaDeveloper/RevivendoBirl"
+  },
   "engines": {
     "vscode": "^1.60.0"
   },
   "categories": [
     "Programming Languages"
+  ],
+  "keywords": [
+    "birl",
+    "bambam",
+    "esoteric",
+    "language"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -35,7 +46,8 @@
     "commands": [
       {
         "command": "birl.run",
-        "title": "BIRL: Executar Treino Monstro"
+        "title": "BIRL: Executar Treino 💪",
+        "category": "BIRL"
       }
     ],
     "keybindings": [
@@ -50,13 +62,17 @@
       "editor/context": [
         {
           "command": "birl.run",
-          "group": "navigation",
-          "when": "editorLangId == birl"
+          "when": "editorLangId == birl",
+          "group": "navigation"
         }
       ]
     }
   },
   "scripts": {
-    "postinstall": "echo 'BORA CUMPADE! Extensão pronta.'"
+    "vscode:prepublish": "echo 'HORA DO SHOW!'",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.9.0"
   }
 }

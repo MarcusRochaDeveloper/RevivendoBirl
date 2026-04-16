@@ -1,38 +1,49 @@
-# Guia de Contribuição: BIRL Open Source
+# Guia de Contribuição — BIRL 💪
 
-Bora cumpade! Ficamos felizes que você quer ajudar a deixar o shape do nosso interpretador ainda mais sinistro. Seguir estas diretrizes garante que o projeto continue subindo peso sem se lesionar.
+Obrigado por querer contribuir com a linguagem mais musculosa do mundo!
 
-## 🏋️‍♂️ Como Começar
+## Como começar
 
-1. **Fork o Repositório**: Faça uma cópia do projeto para sua jaula.
-2. **Crie uma Branch de Treino**: 
-   ```bash
-   git checkout -b feature/novo-musculo
-   ```
-3. **Mantenha o Estilo**: Siga o padrão de escrita maromba nos comentários e documentações.
+1. **Fork** este repositório
+2. **Clone** seu fork: `git clone https://github.com/SEU_USER/RevivendoBirl.git`
+3. Crie uma branch: `git checkout -b feat/minha-feature`
+4. Faça suas alterações
+5. Commit: `git commit -m "feat: descrição curta"`
+6. Push: `git push origin feat/minha-feature`
+7. Abra um **Pull Request**
 
-## 🏗️ O que Contribuir
+## Padrão de commits
 
-- **Novos Exercícios**: Adicione novas atividades de lógica no arquivo `programa.birl`.
-- **Melhorias no Motor**: Otimizações no `index.js` (Lexer, Parser ou I/O).
-- **Tradução de Termos**: Novas palavras-chave que façam sentido no universo do fisiculturismo.
+```
+feat(escopo): descrição       → nova funcionalidade
+fix(escopo): descrição        → correção de bug
+docs: descrição               → documentação
+refactor: descrição           → refatoração
+test: descrição               → testes
+chore: descrição              → manutenção
+```
 
-## 📏 Padrões de Código (Interpretador)
+## Estrutura do projeto
 
-O interpretador é escrito em Node.js (JavaScript).
-- Use `async/await` para operações de I/O.
-- Evite o uso de `eval()` externo; use `new Function()` para contextos isolados conforme o padrão atual.
-- Garanta que erros lancem mensagens claras com o número da linha no `.birl`.
+```
+birl-cli/               → Interpretador (npm: birl-lang)
+birl-vscode-extension/   → Extensão VS Code
+docs/                    → Documentação completa
+programa.birl            → Demo de referência
+```
 
-## 🚑 Reportando Bugs
+## Regras
 
-Se você encontrou um bug que está "catabolizando" a execução:
-1. Abra uma **Issue** explicando o comportamento inesperado.
-2. Forneça o trecho de código `.birl` que causou o crash.
-3. Descreva o comportamento esperado (o shape que você queria).
+- Não quebre o `programa.birl` (é o teste de integração)
+- Mantenha compatibilidade retroativa com programas existentes
+- Use nomes em CAPS_LOCK para variáveis nos exemplos
+- Documente novas keywords no `docs/DOCUMENTATION.md`
 
-## 🏆 Reconhecimento
+## Reportando bugs
 
-Contribuidores que enviarem PRs aprovados serão citados na nossa lista de heróis da jaula!
+Abra uma **Issue** com:
+1. O código `.birl` que causou o erro
+2. A mensagem de erro completa
+3. Sua versão do Node.js (`node --version`)
 
-**"O QUE NÃO TE MATA, TE DEIXA MAIS MONSTRO!"** 👊🏋️‍♂️
+**BORA CUMPADE contribuir!** 💪

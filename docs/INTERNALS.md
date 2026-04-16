@@ -1,64 +1,67 @@
 # ⚙️ Engenharia do Motor: Como o BIRL Funciona
 
-Este documento é destinado a engenheiros que desejam entender as entranhas do interpretador BIRL V5.5 desenvolvido em Node.js.
+> "Conhecer o motor é o primeiro passo para turbinar o código!"
+
+<div align="right">
+
+[🚀 Introdução](INTRODUCTION.md) · [📦 Stdlib](STDLIB.md) · [🛑 Limitações](LIMITATIONS.md) · [← Voltar ao README](../README.md)
+
+</div>
 
 ---
+
+O BIRL não é apenas um script de substituição de texto. É um interpretador de **AST Linear** construído sobre o ecossistema Node.js.
 
 ## 1. O Pipeline de Execução
 
-Ao contrário de compiladores que geram bytecode, o BIRL é um **Interpretador de AST Linear Baseado em RegExp**.
+O processo de transformar texto em gritos de academia segue quatro etapas:
 
 ### 1.1 Lexer (Normalização)
-O arquivo `.birl` é carregado e processado pela primeira vez:
-1.  **Split**: O arquivo é quebrado em linhas.
-2.  **Strip**: Comentários (`//`) são removidos via regex.
-3.  **Map**: Cada linha é associada ao seu número original para gerar erros precisos.
-4.  **Filter**: Linhas vazias são descartadas.
+O arquivo `.birl` é quebrado em linhas. O interpretador remove comentários (`//`), espaços inúteis e mapeia cada instrução à sua linha original para gerar erros precisos.
+
+### 1.2 O Coração: `executarBloco`
+Esta função é recursiva. Quando você chama um método ou inicia um loop, o interpretador cria um **novo contexto** (um escopo limpo) e chama a si mesmo. Isso garante que o que acontece na jaula, fique na jaula.
+
+### 1.3 Avaliador de Expressões
+Para matemática e lógica, o BIRL usa um sandbox baseado em `new Function()`. 
+- **Segurança**: Apenas as variáveis do contexto local são injetadas.
+- **Performance**: É significativamente mais rápido que `eval()` para processamento repetitivo.
 
 ---
 
-## 2. Gerenciamento de Escopo e Memória
+## 2. Gerenciamento de Escopo
 
-O interpretador usa um objeto `ctx` (Contexto) que carrega:
-- `variaveis`: Um dicionário chave-valor simples.
-- `funcoes`: Definições globais.
-- `classes`: Definições de Jaulas.
+O escopo é gerenciado por um objeto chamado `ctx`.
 
-### 2.1 O Coração: `executarBloco`
-Esta função é recursiva. Quando uma função ou método é chamado, o interpretador cria um **novo contexto** e chama a si mesmo. Isso garante que variáveis locais não vazem para o escopo global.
-
-### 2.2 O Pulo do Gato: `skipDepth`
-Para lidar com blocos condicionais (`IF`) ou loops sem um parser completo de árvore, o interpretador usa um contador de profundidade:
-- Se uma condição é **Falsa**, o interpretador entra em modo de salto.
-- Ele continua lendo as linhas, mas ignora comandos, apenas incrementando o `skipDepth` se encontrar inícios de bloco e decrementando no comando `BIRL`.
-- Quando `skipDepth` chega a zero, ele sabe que o bloco falso foi totalmente saltado.
+- **`variaveis`**: Onde moram seus monstros.
+- **`funcoes`**: Dicionário de rotinas globais.
+- **`classes`**: Definições de jaulas prontas para serem instanciadas.
 
 ---
 
-## 3. Retorno de Escopo (Return Bubbling)
+## 3. Fluxo de Controle e `skipDepth`
 
-Como o interpretador é recursivo e trabalha com laços `while`, um comando `BORA CUMPADE` (return) precisa interromper todos os loops internos imediatamente.
-- O motor utiliza um objeto sinalizador `{ __isReturn: true, value: X }`.
-- Ao receber este objeto, cada camada do interpretador verifica o sinalizador e "borbulha" o resultado para cima até chegar à chamada original.
-
----
-
-## 4. O Sistema de Buffer de I/O
-
-Para resolver instabilidades em terminais modernos (como o PowerShell do VS Code), o interpretador implementa um **Smart Buffer**:
-1.  Comandos de saída alimentam um `stdoutBuffer` global.
-2.  O buffer só é impresso via `process.stdout.write` quando um `\n` é detectado.
-3.  Comandos de entrada (`QUE QUE CE QUER MONSTRAO?`) forçam um "flush" do buffer antes de exibir a pergunta do usuário.
+Como o BIRL não usa um parser de árvore tradicional, ele lida com condicionais (`IF`) de forma engenhosa:
+1. Se o teste do `IF` é falso, o motor entra em **Modo de Salto**.
+2. Ele ignora comandos, apenas contando inícios e fins de bloco (profundidade).
+3. Quando a profundidade volta a zero, ele sai do modo de salto e volta a treinar pesado.
 
 ---
 
-## 5. Segurança do Core
+## 4. Return Bubbling (O Grito de Volta)
 
-A avaliação de expressões matemáticas e lógicas utiliza:
-`new Function(...keys, "return " + expr)`.
-- **Blindagem**: Apenas as variáveis presentes no contexto local são passadas como parâmetros para esta função.
-- **Performance**: O uso de `new Function` é significativamente mais rápido que `eval()` em Node.js para avaliações repetitivas.
+Quando o comando `BORA CUMPADE` é executado, o interpretador gera um sinalizador especial. Este sinalizador "borbulha" através de todos os loops e funções internas até chegar à chamada original, interrompendo a execução de forma limpa.
 
 ---
 
-**"CONHECER O MOTOR É O PRIMEIRO PASSO PARA TURBINAR O CÓDIGO!"** 👊🏋️‍♂️
+## 5. Arquitetura de I/O
+
+O sistema usa um **Smart Buffer**. As saídas não vão direto para a tela uma por uma; elas ficam guardadas em um buffer invisível e só são "mostradas" quando o monstro respira (encontra um `\n`). Isso evita que o terminal fique lento durante treinos pesados.
+
+---
+
+<div align="center">
+
+**O motor é forte, mas quem guia é o mestre.** 👊🏋️‍♂️
+
+</div>

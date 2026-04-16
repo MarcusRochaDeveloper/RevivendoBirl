@@ -1,39 +1,66 @@
-# 🧬 Introdução à Linguagem BIRL: O Manifesto
+<![CDATA[# 🚀 Introdução à Linguagem BIRL
 
 > "Ajuda o maluco que tá doente! Aqui é bodybuilder, porra!" — Kleber Bambam
 
-## 🏋️‍♂️ 1. Visão Geral
-A **BIRL (Binary Interactive Runtime Language)** nasceu como uma paródia, mas evoluiu para uma linguagem esotérica funcional e robusta com suporte completo a **Orientação a Objetos (OOP)**. Ela foi projetada para desenvolvedores que entendem que programar é, acima de tudo, um treino de resistência mental e crescimento técnico.
+<div align="right">
 
-## 🏛️ 2. Filosofia: O Credo do Monstro
-Codar em BIRL não é apenas escrever lógica; é esculpir o software no aço. A filosofia da linguagem baseia-se em quatro pilares:
+[📖 Documentação](DOCUMENTATION.md) · [⚡ Sintaxe](SYNTAX.md) · [💡 Exemplos](EXAMPLES.md) · [← Voltar ao README](../README.md)
 
-1.  **Hipertrofia de Dados**: Se uma variável não cresce, ela cataboliza. Tudo é `MONSTRO`.
-2.  **Blindagem de Escopo**: O que acontece na jaula, fica na jaula.
-3.  **Execução Explosiva**: O interpretador não lê código; ele executa movimentos explosivos através do `skipDepth`.
-4.  **Resiliência (O BIRL Vilão)**: Erros de sintaxe são apenas lesões temporárias. O monstro de verdade corrige o código e volta pro supino.
-
-## 🚀 3. Por que BIRL?
-Enquanto linguagens tradicionais focam em abstrações frias e sem alma, a BIRL traz o calor da academia para o terminal. Ela é ideal para:
-- **Educação Disruptiva**: Ensinar lógica de programação de forma memorável.
-- **Microservices de Alta Performance Humana**: Onde a legibilidade é medida pelo volume de gritos no escritório.
-- **Projetos de Código Aberto (OSS)**: Onde cada Pull Request é um "Spot" para um colega de treino.
+</div>
 
 ---
 
-## 🗺️ 4. Mapa do Ecossistema
-Para dominar o shape do sistema, explore os guias especializados:
+## O que é BIRL?
 
-- **[Especificação de Sintaxe](./SYNTAX.md)**: A gramática formal e os comandos básicos.
-- **[Manual de Orientação a Objetos](./OOP.md)**: Como dominar as Jaulas e o contexto `O_PAI`.
-- **[Biblioteca Padrão e I/O](./STDLIB.md)**: Formatadores e manipulação de listas.
-- **[Engenharia Interna](./INTERNALS.md)**: Como o motor funciona por baixo dos panos.
-- **[Estudos de Caso (Os 12 Treinos)](./EXAMPLES.md)**: Exemplos práticos do mundo real.
-- **[Limitações da Linguagem](./LIMITATIONS.md)**: O que a BIRL ainda não faz.
+**BIRL** (**B**ambam's **I**t's-show-time **R**ecursive **L**anguage) é uma linguagem de programação interpretada, dinâmica e orientada a objetos, cujos comandos são bordões do fisiculturista Bambam.
+
+Nasceu como paródia, evoluiu para uma linguagem capaz de resolver problemas reais: variáveis, loops, funções, classes, arrays, I/O formatada — tudo empacotado em gritos de academia.
+
+## Por que aprender BIRL?
+
+- **Educação**: Ensina lógica de programação de forma memorável
+- **Diversão**: Memes + código = motivação
+- **Real**: Não é toy language — implementa OOP completo
+- **Tooling**: Extensão VS Code com syntax highlighting oficial
+
+## Seu primeiro programa
+
+```birl
+HORA DO SHOW
+    CE QUER VER ESSA PORRA? ("Hello, World!\n");
+BIRL
+```
+
+```bash
+$ birl hello.birl
+💪 CARREGANDO COMPILADOR BIRL V5.4 (O SHAPE INVISÍVEL REVELADO)...
+Hello, World!
+💪 TREINO CONCLUÍDO!
+```
+
+## Filosofia: O Credo do Monstro
+
+1. **Hipertrofia de Dados** — Se uma variável não cresce, ela cataboliza. Tudo é `MONSTRO`.
+2. **Blindagem de Escopo** — O que acontece na jaula, fica na jaula.
+3. **Execução Explosiva** — O interpretador não lê código; ele executa movimentos explosivos.
+4. **Resiliência** — Erros são lesões temporárias. O monstro corrige e volta.
+
+## Próximos passos
+
+| Nível | Documento | O que vai aprender |
+|-------|-----------|-------------------|
+| 🟢 Iniciante | [Referência Rápida](SYNTAX.md) | Todos os comandos em uma página |
+| 🟡 Intermediário | [OOP](OOP.md) | Classes, objetos e `O_PAI` |
+| 🟡 Intermediário | [Stdlib](STDLIB.md) | Arrays, I/O e formatação |
+| 🔴 Avançado | [Internals](INTERNALS.md) | Como o motor funciona |
+| 📋 Referência | [Exemplos](EXAMPLES.md) | 12 exercícios completos |
+| ⚠️ Extra | [Limitações](LIMITATIONS.md) | O que BIRL não faz (ainda) |
 
 ---
 
-## 🏆 5. O Caminho do Mr. Olympia
-Lembre-se: no BIRL, não existe "Hello World". Existe **"HORA DO SHOW"**. Se você começar a treinar agora, em breve estará construindo jaulas complexas que fariam o próprio Bambam chorar de orgulho.
+<div align="center">
 
-**BORA CUMPADE! O TREINO SÓ ACABA QUANDO O SISTEMA DESLIGA!** 👊🏋️‍♂️
+**Não existe "Hello World" em BIRL. Existe HORA DO SHOW.** 💪
+
+</div>
+]]>

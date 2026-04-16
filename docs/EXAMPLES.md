@@ -1,57 +1,82 @@
 # 📋 Estudos de Caso: Os 12 Treinos do Programa
 
-Este documento serve como um guia didático dos exercícios implementados no arquivo `programa.birl`, demonstrando o poder da linguagem em situações reais.
+> "Cada exercício é mais um tijolo na sua parede de músculos técnicos!"
+
+<div align="right">
+
+[🚀 Introdução](INTRODUCTION.md) · [⚡ Sintaxe](SYNTAX.md) · [🏛️ OOP](OOP.md) · [← Voltar ao README](../README.md)
+
+</div>
 
 ---
 
-## 🏋️‍♂️ Treino 1: Gestão de Alunos (Fundamental)
-- **Foco**: Entrada de dados e filtragem básica.
-- **Destaque Técnico**: Cálculo de média aritmética simples e busca de maior valor persistente em variáveis de controle.
+Este documento serve como um guia didático dos exercícios implementados no arquivo [`programa.birl`](../programa.birl). Ele demonstra como aplicar a linguagem em cenários reais de software.
 
-## 📦 Treino 2: Gestão de Produtos (Exclusão Lógica)
-- **Foco**: Padrões de banco de dados e Soft Delete.
-- **Destaque Técnico**: Uso do atributo `ATIVO` para simular a remoção de dados sem deletar o objeto da memória, padrão comum em sistemas ERP robustos.
+## 🏋️‍♂️ Lista de Treinos
 
-## 📚 Treino 3: Biblioteca e Acervo
-- **Foco**: Filtros de data e strings.
-- **Destaque Técnico**: Comparação de valores numéricos para filtragem de inventário.
+### 1. Gestão de Alunos (Fundamental)
+- **Foco**: Entrada de dados e filtragem.
+- **Destaque**: Uso de acumuladores para cálculo de média e algoritmos de busca de maior valor.
 
-## 🎓 Treino 4: Estudantes e Notas (Arrays Complexos)
-- **Foco**: Arrays dinâmicos aninhados em objetos.
-- **Destaque Técnico**: Implementação de um método `MEDIA()` que itera sobre uma lista interna (`VEM MONSTRO`) usando as funções `TAMANHO()` e `PEGA()`.
+### 📦 2. Gestão de Produtos (Exclusão Lógica)
+- **Foco**: Persistência em memória e **Soft Delete**.
+- **Destaque**: Uso do atributo `ATIVO` para desabilitar itens sem removê-los do array, mantendo a integridade do histórico.
 
-## 📇 Treino 5: CRM de Contatos
-- **Foco**: Busca por strings (Querying).
-- **Destaque Técnico**: Algoritmo de busca linear em uma lista de objetos complexos.
+### 📚 3. Biblioteca e Acervo
+- **Foco**: Filtros de metadados.
+- **Destaque**: Comparação de datas (campos numéricos) para filtragem de inventário.
 
-## 🛒 Treino 6: Carrinho de Compras
-- **Foco**: Cálculos acumuladores.
-- **Destaque Técnico**: Chamada de método encadeada em expressão aritmética: `TOTAL = TOTAL + OBJ.SUBTOTAL()`.
+### 🎓 4. Estudantes e Notas (Arrays Complexos)
+- **Foco**: Composição (Objetos contendo Arrays).
+- **Destaque**: O objeto `Estudante` possui um atributo `NOTAS` (tipo `VEM MONSTRO`). O método `MEDIA()` itera internamente sobre essa lista dinâmica.
 
-## 💼 Treino 7: Módulo RH
-- **Foco**: Tipagem MONSTRO para valores financeiros (Float).
-- **Destaque Técnico**: Uso da máscara `%f` para exibição de precisão decimal em salários.
+### 📇 5. CRM de Contatos
+- **Foco**: Busca por Strings (Querying).
+- **Destaque**: Implementação de busca linear exata em listas de objetos.
 
-## 🎬 Treino 8: Ranking de Filmes
-- **Foco**: Lógica de ranking e premiação.
-- **Destaque Técnico**: Algoritmo de "King-of-the-Hill" para identificar o filme com maior nota entre N entradas.
+### 🛒 6. Carrinho de Compras
+- **Foco**: Lógica de checkout.
+- **Destaque**: Chamadas de método encadeadas: `TOTAL = TOTAL + AJUDA O MALUCO... OBJ.SUBTOTAL()`.
 
-## 🚗 Treino 9: Gestão de Frota
-- **Foco**: Atributos múltiplos e metadados.
-- **Destaque Técnico**: Uso de Jaulas com mais de 3 atributos inicializados no `INIT`.
+### 💼 7. Módulo RH
+- **Foco**: Processamento de Floats.
+- **Destaque**: Uso da máscara `%f` para precisão decimal em calculos salariais.
 
-## 🧾 Treino 10: ERP de Faturamento
-- **Foco**: IDs Numéricos e Razão Social.
-- **Destaque Técnico**: Manipulação de strings longas capturadas via I/O.
+### 🎬 8. Ranking de Filmes
+- **Foco**: Algoritmos de ordenação conceitual.
+- **Destaque**: Identificação dinâmica do recordista (maior nota) entre N entradas.
 
-## ✅ Treino 11: Kanban Sprint Task
-- **Foco**: Máquina de Estados simples.
-- **Destaque Técnico**: Alteração do atributo `CONCLUIDA` e conversão dinâmica de estados (Boolean para String) para exibição do status amigável.
+### 🚗 9. Gestão de Frota
+- **Foco**: Inicialização complexa.
+- **Destaque**: Jaulas com múltiplos parâmetros no construtor `INIT`.
 
-## ⚽ Treino 12: Scout de Atletas
-- **Foco**: Agregação de dados.
-- **Destaque Técnico**: Demonstração final de todo o ecossistema (Jaulas, Listas, Loops e I/O Formatado) em um cenário de análise de scouting esportivo.
+### 🧾 10. ERP de Faturamento
+- **Foco**: Processamento de pedidos.
+- **Destaque**: IDs numéricos e Razão Social (strings longas).
+
+### ✅ 11. Kanban Sprint Task
+- **Foco**: Máquina de Estados.
+- **Destaque**: Transição de status (`Pendente` para `Concluído`) e renderização condicional de strings baseada em booleanos (`CONCLUIDA == 1`).
+
+### ⚽ 12. Scout de Atletas
+- **Foco**: Agregação de dados esportivos.
+- **Destaque**: Demonstração final integrando Jaulas, Listas, Loops e I/O formatado.
 
 ---
 
-**"CADA EXERCÍCIO É MAIS UM TIJOLO NA SUA PAREDE DE MÚSCULOS TÉCNICOS!"** 👊🏋️‍♂️
+## 🚀 Como testar esses treinos?
+
+1. Certifique-se de que o CLI está instalado: `npm install -g ./birl-cli`
+2. Execute o roteador mestre:
+   ```bash
+   birl programa.birl
+   ```
+3. Escolha uma opção de **01 a 12** no menu interativo.
+
+---
+
+<div align="center">
+
+**O sucesso é a soma de pequenos esforços repetidos dia após dia!** 👊🏋️‍♂️
+
+</div>

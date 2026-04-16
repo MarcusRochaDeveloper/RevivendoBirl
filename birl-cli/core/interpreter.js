@@ -1,6 +1,10 @@
 const fs = require("fs");
 const readline = require("readline/promises");
 
+/**
+ * Motor Central da Linguagem BIRL
+ * Responsável pelo Lexer, Parser e Execução Síncrona/Assíncrona
+ */
 class BirlInterpreter {
     constructor() {
         this.stdoutBuffer = "";
@@ -19,21 +23,14 @@ class BirlInterpreter {
         }).filter(l => l.text.length > 0);
 
         if (linhasGlobais.length === 0 || !linhasGlobais.some(l => l.text === "HORA DO SHOW")) {
-            console.log("🔥 ERRO FATAL: Faltou 'HORA DO SHOW' no começo do treino!");
-            process.exit(1);
+            throw new Error("🔥 ERRO FATAL: Faltou 'HORA DO SHOW' no começo do treino!");
         }
 
         const ctx = { variaveis: {}, funcoes: {}, classes: {} };
         const startIndex = linhasGlobais.findIndex(l => l.text === "HORA DO SHOW");
         const corpoPrograma = linhasGlobais.slice(startIndex + 1);
 
-        try {
-            await this.executarBloco(corpoPrograma, ctx);
-        } catch (e) {
-            console.log("\n🔥 ERRO CRÍTICO NO INTERPRETADOR!");
-            console.log(e.message);
-            process.exit(1);
-        }
+        await this.executarBloco(corpoPrograma, ctx);
 
         if (this.stdoutBuffer.length > 0) {
             process.stdout.write(this.stdoutBuffer);
@@ -56,8 +53,8 @@ class BirlInterpreter {
                 const evaluate = new Function(...keys, `return ${expr};`);
                 return evaluate(...values);
             } catch (e) {
-                console.log(`\n🔥 ERRO DE EXECUÇÃO: Expressão falha ou variável não declarada!`);
-                console.log(`👉 Linha ${numLinha}: "${expr}"`);
+                console.error(`\n🔥 ERRO DE EXECUÇÃO: Expressão falha ou variável não declarada!`);
+                console.error(`👉 Linha ${numLinha}: "${expr}"`);
                 process.exit(1);
             }
         };
@@ -65,8 +62,7 @@ class BirlInterpreter {
         const extrairBloco = (startIndex) => this.extrairBlocoGeral(startIndex, linhas);
 
         const checkReturn = (res) => {
-            if (res && typeof res === 'object' && res.__isReturn) return true;
-            return false;
+            return (res && typeof res === 'object' && res.__isReturn);
         };
 
         const ifStack = [];
@@ -77,9 +73,11 @@ class BirlInterpreter {
             let l_num = linhas[i].line;
 
             if (!l_text) continue;
+
+            // Suporte a comentários e tokens vazios (já limpos no run)
             if (/^(FRANGO|MONSTRINHO|MONSTRAO|TRAPEZIO|BICEPS)/.test(l_text)) continue;
 
-            // MODO SKIP
+            // MODO SALTO (Pular blocos se a condição for falsa)
             if (ifStack.length > 0 && !ifStack[ifStack.length - 1].executar) {
                 if (/^(ELE QUE A GENTE QUER\?|NEGATIVA BAMBAM|MAIS QUERO MAIS|OH O HOME AI PO|JAULA)/.test(l_text)) {
                     skipDepth++;
@@ -89,6 +87,8 @@ class BirlInterpreter {
                     else ifStack.pop();
                     continue;
                 }
+                
+                // Lógica de ELSE IF / ELSE mesmo em modo skip
                 if (skipDepth === 0) {
                     if (l_text.startsWith("QUE NAO VAI DAR O QUE?")) {
                         const match = l_text.match(/\((.*)\)/);
@@ -147,6 +147,7 @@ class BirlInterpreter {
                 continue;
             }
 
+            // LOOPS
             if (l_text.startsWith("NEGATIVA BAMBAM")) {
                 const match = l_text.match(/\((.*)\)/);
                 const { bloco, novoI } = extrairBloco(i);
@@ -154,8 +155,7 @@ class BirlInterpreter {
                     let res = await this.executarBloco(bloco, ctx);
                     if (checkReturn(res)) return res;
                 }
-                i = novoI;
-                continue;
+                i = novoI; continue;
             }
 
             if (l_text.startsWith("MAIS QUERO MAIS")) {
@@ -179,6 +179,7 @@ class BirlInterpreter {
                 continue;
             }
 
+            // OOP: JAULAS
             if (l_text.startsWith("JAULA")) {
                 const match = l_text.match(/JAULA\s+(\w+)/);
                 const nomeClasse = match[1];
@@ -197,8 +198,7 @@ class BirlInterpreter {
                         }
                     }
                 }
-                i = novoI;
-                continue;
+                i = novoI; continue;
             }
 
             if (l_text.includes("SAINDO DA JAULA")) {
@@ -206,11 +206,12 @@ class BirlInterpreter {
                 if (match) {
                     const [, objName, className] = match;
                     if (ctx.classes[className]) variaveis[objName] = { __class: className };
-                    else process.exit(1);
+                    else throw new Error(`🔥 JAULA '${className}' NÃO ENCONTRADA!`);
                     continue;
                 }
             }
 
+            // COLEÇÕES
             if (l_text.includes("VEM MONSTRO")) {
                 let match = l_text.match(/(?:MONSTRO\s+)?([a-zA-Z_]\w*)\s*=\s*VEM MONSTRO;?/);
                 if (match) { variaveis[match[1]] = []; continue; }
@@ -222,6 +223,7 @@ class BirlInterpreter {
                 }
             }
 
+            // FUNÇÕES GLOBAIS
             if (l_text.startsWith("OH O HOME AI PO")) {
                 const match = l_text.match(/OH O HOME AI PO\s*\(\s*MONSTRO\s+(\w+)\((.*?)\)\s*\)/);
                 if (match) {
@@ -229,8 +231,7 @@ class BirlInterpreter {
                     const params = match[2].split(",").map(p => p.trim().replace("MONSTRO ", "")).filter(p => p.length > 0);
                     const { bloco, novoI } = extrairBloco(i);
                     ctx.funcoes[nomeFunc] = { params, bloco };
-                    i = novoI;
-                    continue;
+                    i = novoI; continue;
                 }
             }
 
@@ -240,7 +241,7 @@ class BirlInterpreter {
                 return { __isReturn: true, value: val };
             }
 
-            // AJUDA O MALUCO TA DOENTE (Chamadas)
+            // CHAMADAS (AJUDA O MALUCO TA DOENTE)
             if (l_text.includes("AJUDA O MALUCO TA DOENTE")) {
                 const ajudaRE = /AJUDA O MALUCO TA DOENTE\s+([\w.]+)\((.*?)\)/;
                 const matchAjuda = l_text.match(ajudaRE);
@@ -292,7 +293,7 @@ class BirlInterpreter {
                 continue;
             }
 
-            // DECLARAÇÃO / ATRIBUIÇÃO
+            // DECLARAÇÕES / ATRIBUIÇÕES
             if (l_text.startsWith("MONSTRO") && !/SAINDO DA JAULA|VEM MONSTRO|AJUDA O MALUCO/.test(l_text)) {
                 const match = l_text.match(/MONSTRO\s+([a-zA-Z_]\w*)\s*=\s*(.*);/);
                 if (match) variaveis[match[1]] = getValue(match[2], l_num);
@@ -339,6 +340,7 @@ class BirlInterpreter {
             try { return new Function(...Object.keys(variaveis), `return ${a};`)(...Object.values(variaveis)); } catch(e) { return a; }
         }) : [];
         const partes = fullPath.split('.');
+        
         if (partes.length === 1) {
             const funcName = partes[0];
             if (ctx.funcoes[funcName]) {
@@ -349,7 +351,7 @@ class BirlInterpreter {
                 if (res && res.__isReturn) return res.value;
                 return undefined;
             }
-        } else if (partes.length === 2 || partes.length === 3) {
+        } else if (partes.length >= 2) {
             let obj = variaveis[partes[0]];
             let metodo = partes[partes.length-1];
             if (partes.length === 3) obj = obj[partes[1]];
@@ -359,6 +361,7 @@ class BirlInterpreter {
                 if (metodo === "TAMANHO") return obj.length;
                 if (metodo === "PEGA") return obj[args[0]];
             }
+
             if (obj && obj.__class && ctx.classes[obj.__class] && ctx.classes[obj.__class][metodo]) {
                 const methodDef = ctx.classes[obj.__class][metodo];
                 const methodCtx = { variaveis: { O_PAI: obj }, funcoes: ctx.funcoes, classes: ctx.classes };
@@ -368,7 +371,7 @@ class BirlInterpreter {
                 return undefined;
             }
         }
-        process.exit(1);
+        throw new Error(`🔥 CHAMADA FALHOU: '${fullPath}' não encontrado!`);
     }
 }
 

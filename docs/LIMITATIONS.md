@@ -1,56 +1,43 @@
 # 🛑 Limitações e O que a BIRL não faz
 
-Nenhum monstro é perfeito. Para manter a performance e a blindagem do shape, o interpretador BIRL V5.5 possui algumas limitações técnicas conscientes que todo desenvolvedor deve conhecer.
+> "Conhecer suas limitações é o primeiro passo para superá-las!"
+
+<div align="right">
+
+[🚀 Introdução](INTRODUCTION.md) · [⚙️ Internals](INTERNALS.md) · [📋 Exemplos](EXAMPLES.md) · [← Voltar ao README](../README.md)
+
+</div>
 
 ---
 
-## 1. Paradigma OOP Simplificado
+Nenhum monstro é perfeito. Para manter a performance e a blindagem do shape, o interpretador BIRL V5.5 possui algumas limitações técnicas conscientes.
 
-### 1.1 Sem Herança
-Diferente de linguagens como Java ou C#, a BIRL não suporta herança entre `JAULAS`. Não existe `extends` ou `super()`. Cada Jaula é um ecossistema independente.
-*   **Solução**: Use Composição em vez de Herança.
+## 1. Sem Herança de Jaulas
 
-### 1.2 Sem Modificadores de Acesso (Private/Public)
-Todos os atributos em `O_PAI` são públicos e acessíveis de fora da Jaula. Não existe proteção de memória nativa para evitar que um "frango" mexa no seu atributo privado.
-*   **Melhor Prática**: Use convenções de nomenclatura (ex: `O_PAI._VALOR_INTERNO`).
+Diferente de linguagens como Java ou C#, a BIRL não suporta herança. Cada `JAULA` é um ecossistema independente.
+- **Dica**: Use o padrão de **Composição**. Em vez de herdar, coloque uma instância de outra jaula dentro do seu objeto.
 
----
+## 2. Visibilidade de Atributos
 
-## 2. Concorrência e Assincronicidade
+Todos os atributos anexados ao `O_PAI` são públicos por padrão. Não existe a palavra-chave "private".
+- **Dica**: Use a convenção de monstro iniciá-los com underline (ex: `O_PAI._peso`) para sinalizar que outros não devem mexer.
 
-### 2.1 Execução Monolítica Síncrona
-Apesar do interpretador rodar em Node.js (que é assíncrono), os scripts `.birl` são executados de forma **estritamente síncrona**. Você não pode criar "Promessas" ou rodar treinos em paralelo dentro da linguagem.
-*   **Impacto**: Operações de I/O pesadas bloqueiam a execução do script até serem concluídas.
+## 3. Concorrência Assíncrona
 
----
+Apesar de rodar em Node.js, os scripts BIRL são executados de forma **estritamente síncrona**. Você não pode criar "Promises" ou rodar treinos em paralelo dentro da linguagem.
 
-## 3. Ecossistema e Biblioteca Padrão
+## 4. Biblioteca Padrão (StdLib) Focada
 
-### 3.1 Biblioteca Padrão (StdLib) Minimalista
-A BIRL não possui acesso nativo ao sistema de arquivos (FileSystem), à rede (HTTP) ou a bibliotecas matemáticas avançadas.
-*   **Disponível**: Apenas manipulação de Listas/Arrays e I/O de console básico.
+A BIRL não possui acesso nativo ao sistema de arquivos, rede ou bibliotecas gráficas. O foco é lógica de negócio, manipulação de dados e I/O de terminal.
+
+## 5. Tratamento de Erros
+
+O BIRL não possui `try/catch`. Se o programa catabolizar (gerar um erro), ele para imediatamente para evitar corrupção de dados. A segurança do monstro vem em primeiro lugar.
 
 ---
 
-## 4. Gerenciamento de Erros
+<div align="center">
 
-### 4.1 Falta de `try/catch`
-Se o seu código catabolizar (gerar um erro de sintaxe ou execução), o interpretador irá encerrar o processo (`process.exit(1)`) imediatamente. Não há como capturar exceções em tempo de execução para manter o programa de pé.
+**O que não nos mata, nos torna mais monstros.** 👊🏋️‍♂️
 
----
-
-## 5. Performance de Execução
-
-### 5.1 Sobrecarga de Interpretação
-Como o motor utiliza Expressões Regulares (RegExp) e `new Function()` para avaliar **cada linha** em tempo real, a BIRL não é indicada para aplicações de alta performance computacional ou cálculos científicos complexos.
-
----
-
-## 6. Sistema de Tipos
-
-### 6.1 Tipagem Dinâmica e Fraca
-Não existe verificação de tipos em tempo de compilação. O interpretador só descobre que você tentou somar uma String com um Objeto no momento da execução.
-
----
-
-**"CONHECER SUAS LIMITAÇÕES É O PRIMEIRO PASSO PARA SUPERÁ-LAS!"** 👊🏋️‍♂️
+</div>

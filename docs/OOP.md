@@ -1,72 +1,122 @@
 # 🏛️ Manual de Orientação a Objetos: JAULAS e Monstros
 
-A BIRL OOP V5.5 eleva a linguagem para o paradigma de classes, permitindo a criação de softwares modulares e "blindados".
+> "O que acontece na jaula, fica na jaula."
+
+<div align="right">
+
+[🚀 Introdução](INTRODUCTION.md) · [📖 Documentação](DOCUMENTATION.md) · [📦 Stdlib](STDLIB.md) · [← Voltar ao README](../README.md)
+
+</div>
 
 ---
+
+A **BIRL OOP V5.5** eleva a linguagem para o paradigma de classes, permitindo a criação de softwares modulares, reutilizáveis e, acima de tudo, blindados.
 
 ## 1. O Conceito de `JAULA` (Classe)
 
-Uma `JAULA` é o molde para um objeto. Dentro dela, definimos as características (atributos) e as ações (métodos) que o objeto pode realizar.
+Uma `JAULA` é o blueprint (molde) para um objeto. Dentro dela, definimos os atributos e os métodos que o monstro terá quando sair para o mundo.
 
-### 1.1 Definição de Jaula
+### Definição de Jaula
+
 ```birl
 JAULA NomeDaJaula
-    // Definição de métodos
+    // Definição de métodos aqui
 BIRL
 ```
 
 ---
 
-## 2. Métodos e Comportamento
+## 2. A Palavra-Chave `O_PAI` (Contexto `this`)
 
-Os métodos são definidos usando a frase **`OH O HOME AI PO`**.
+O `O_PAI` é a referência ao **contexto da instância local**. Tudo o que você pendura no `O_PAI` torna-se um atributo persistente daquela instância específica.
 
-### 2.1 Método Especial: `INIT`
-Embora o nome seja arbitrário, por padrão usamos o método `INIT` para inicializar os atributos do objeto assim que ele "sai da jaula".
+- **Persistência**: Os valores em `O_PAI` duram enquanto o objeto estiver vivo.
+- **Isolamento**: O que você faz no `O_PAI` de um objeto não afeta o `O_PAI` de outro.
+
+---
+
+## 3. Métodos e Comportamento
+
+Os métodos são declarados dentro da `JAULA` usando `OH O HOME AI PO`.
+
+### 3.1 O Construtor: `INIT`
+
+Por convenção, usamos o método `INIT` para inicializar os atributos do objeto.
 
 ```birl
-OH O HOME AI PO (MONSTRO INIT(MONSTRO N, MONSTRO P))
-    O_PAI.NOME = N;
-    O_PAI.PRECO = P;
-    BORA CUMPADE 1;
+JAULA Produto
+    OH O HOME AI PO (MONSTRO INIT(MONSTRO N, MONSTRO P))
+        O_PAI.NOME = N;
+        O_PAI.PRECO = P;
+        BORA CUMPADE 1;
+    BIRL
 BIRL
 ```
 
 ---
 
-## 3. A Palavra-Chave `O_PAI` (This Context)
+## 4. Ciclo de Vida: Saindo da Jaula
 
-Diferente de variáveis globais, o `O_PAI` é a referência ao **contexto da instância local**. Tudo o que você pendura no `O_PAI` (ex: `O_PAI.X = 10`) torna-se um atributo persistente daquela instância específica.
-
-- **Escopo**: O `O_PAI` só é acessível dentro de métodos de uma `JAULA`.
-- **Persistência**: Os valores em `O_PAI` duram enquanto o objeto existir na memória.
-
----
-
-## 4. O Ciclo de Vida do Objeto
-
-### 4.1 Instanciação (`SAINDO DA JAULA`)
-Para transformar uma Jaula em um objeto funcional:
+### 1. Instanciação
+Para criar um novo monstro a partir do molde:
 ```birl
-MONSTRO MEU_OBJ = SAINDO DA JAULA NomeDaJaula;
+MONSTRO MEU_PRODUTO = SAINDO DA JAULA Produto;
 ```
 
-### 4.2 Inicialização
-Após sair da jaula, o objeto precisa de "suplementação" (inicialização de dados):
+### 2. Inicialização
+Chame o seu método de inicialização:
 ```birl
-AJUDA O MALUCO TA DOENTE MEU_OBJ.INIT("Whey", 150);
+AJUDA O MALUCO TA DOENTE MEU_PRODUTO.INIT("Whey Protein", 150.0);
 ```
 
-### 4.3 Chamada de Métodos
-Métodos de objeto sempre exigem o prefixo `AJUDA O MALUCO TA DOENTE` seguido pelo `caminho.do.metodo()`.
+### 3. Uso
+Acesse métodos e atributos:
+```birl
+CE QUER VER ESSA PORRA? ("Produto: %s\n", MEU_PRODUTO.NOME);
+```
 
 ---
 
-## 5. Encapsulamento e Estado
+## 5. Exemplo Completo: O Sistema de Notas
 
-Na BIRL, o encapsulamento é garantido pelo interpretador através do `ctx` (contexto).
-- Atributos criados via `O_PAI` podem ser acessados externamente via `OBJETO.ATRIBUTO`, mas a boa prática monstra sugere o uso de métodos "Getter/Setter" para manter a blindagem.
+```birl
+JAULA Aluno
+    OH O HOME AI PO (MONSTRO INIT(MONSTRO NOME, MONSTRO NOTA))
+        O_PAI.NOME = NOME;
+        O_PAI.NOTA = NOTA;
+        BORA CUMPADE 1;
+    BIRL
+
+    OH O HOME AI PO (MONSTRO MOSTRAR())
+        CE QUER VER ESSA PORRA? ("Aluno: %s | Nota: %d\n", O_PAI.NOME, O_PAI.NOTA);
+        BORA CUMPADE 1;
+    BIRL
+BIRL
+
+HORA DO SHOW
+    MONSTRO A1 = SAINDO DA JAULA Aluno;
+    AJUDA O MALUCO TA DOENTE A1.INIT("Marcus", 10);
+    
+    MONSTRO A2 = SAINDO DA JAULA Aluno;
+    AJUDA O MALUCO TA DOENTE A2.INIT("Adam", 9);
+
+    AJUDA O MALUCO TA DOENTE A1.MOSTRAR();
+    AJUDA O MALUCO TA DOENTE A2.MOSTRAR();
+BIRL
+```
 
 ---
 
-**"CONSTRUA JAULAS FORTES E NENHUM BUG ESCAPARÁ!"** 👊🏋️‍♂️
+## 💡 Dicas de Mestre
+
+1. **Getters e Setters**: Embora o acesso direto `OBJ.ATTR` funcione, criar métodos para alterar o estado (ex: `SUBIR_PESO`) mantém o código mais blindado.
+2. **Nomes de Classes**: Use **PascalCase** para `JAULAS` (ex: `FuncionarioPublico`) para diferenciar de variáveis comuns.
+3. **Composição**: Você pode ter objetos dentro de objetos! Pendure uma `JAULA` em um atributo do `O_PAI`.
+
+---
+
+<div align="center">
+
+**Construe jaulas fortes e nenhum bug escapará!** 👊🏋️‍♂️
+
+</div>

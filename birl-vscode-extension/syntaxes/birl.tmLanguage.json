@@ -1,0 +1,57 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "BIRL",
+    "scopeName": "source.birl",
+    "fileTypes": ["birl"],
+    "patterns": [
+        { "include": "#comment" },
+        { "include": "#string" },
+        { "include": "#number" },
+        { "include": "#keyword_question" },
+        { "include": "#keyword" },
+        { "include": "#type" },
+        { "include": "#function" },
+        { "include": "#variable" }
+    ],
+    "repository": {
+        "comment": {
+            "name": "comment.line.double-slash.birl",
+            "match": "//.*$"
+        },
+        "string": {
+            "name": "string.quoted.double.birl",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.birl",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "number": {
+            "name": "constant.numeric.birl",
+            "match": "\\b\\d+(\\.\\d+)?\\b"
+        },
+        "keyword_question": {
+            "name": "keyword.control.birl",
+            "match": "\\b(ELE QUE A GENTE QUER|QUE NAO VAI DAR O QUE|CE QUER VER ESSA PORRA|QUE QUE CE QUER MONSTRAO)\\?"
+        },
+        "keyword": {
+            "name": "keyword.control.birl",
+            "match": "\\b(HORA DO SHOW|NAO VAI DAR NAO|NEGATIVA BAMBAM|MAIS QUERO MAIS|BORA CUMPADE|SAINDO DA JAULA|VEM MONSTRO|BIRL)\\b"
+        },
+        "type": {
+            "name": "storage.type.birl",
+            "match": "\\b(MONSTRO|JAULA|INTEIRO|FRALDA|FIBRA)\\b"
+        },
+        "function": {
+            "name": "support.function.birl",
+            "match": "\\b(OH O HOME AI PO|AJUDA O MALUCO TA DOENTE)\\b"
+        },
+        "variable": {
+            "name": "variable.language.birl",
+            "match": "\\bO_PAI\\b"
+        }
+    }
+}
